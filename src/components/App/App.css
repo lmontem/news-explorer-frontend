@@ -7,3 +7,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+.background{
+  background-image: url('../../images/phone-background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}

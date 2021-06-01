@@ -5,7 +5,7 @@
     
 }
 
-.nav-text{
+.nav__text{
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
     font-size: 18px;
     line-height: 24px;
@@ -15,7 +15,7 @@
     text-decoration: none;
 }
 
-.nav-btn{
+.nav__btn{
     border-radius: 100px;
     border: 1px solid #fff;
     background-color: transparent;
@@ -25,7 +25,7 @@
     margin: 19px 0px;
 }
 
-.nav-text:hover{
+.nav__text:hover{
     opacity: .5;
     border-bottom: 3px solid #fff;
 }
