@@ -1,0 +1,27 @@
+.about{
+    display: flex;
+}
+
+.about__img{
+    background-color: violet;
+    max-width: 464px;
+    min-height: 464px;
+    border-radius: 50%;
+}
+
+.about__heading{
+    font-family: 'Roboto Slab','Roboto', Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 1.15;
+    color: #1A1B22;
+}
+
+.about__description{
+    font-family: 'Roboto',Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 1.33;
+    color: #1A1B22;
+
+}
