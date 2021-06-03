@@ -1,0 +1,14 @@
+.nothing-found__img{
+    
+    margin-bottom: 24px;
+}
+
+.nothing-found__title{
+    font-family: 'Roboto Slab', 'Roboto', Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 26px;
+    line-height: 1.15;
+    color: #1A1B22;
+    margin-top: 0;
+    margin-bottom: 16px;
+}
