@@ -2,10 +2,11 @@
 import SearchForm from '../SearchForm/SearchForm.js';
 import NothingFound from '../NothingFound/NothingFound';
 import Preloader from '../Preloader/Preloader';
-import NewsCard from '../NewsCard/NewsCard';
+import NewsCardList from '../NewsCardList/NewsCardList.js';
 import About from '../About/About';
 import Footer from '../Footer/Footer';
 import './App.css';
+
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
       <SearchForm />
       <NothingFound />
       <Preloader />
-      <NewsCard />
+      <NewsCardList />
       <About />
       <Footer />
     </div>

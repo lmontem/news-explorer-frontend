@@ -1,0 +1,48 @@
+.cards{
+    background-color: #F5F6F7;
+    padding-bottom: 80px;
+}
+.cards__block{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: calc(100% - 2* 104px);
+    background-color: #F5F6F7;
+    
+}
+
+.cards__list{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min-content, 400px));
+    gap: 16px;
+    padding-bottom: 64px;
+}
+
+.cards__title{
+    font-family: 'Roboto Slab', 'Roboto',Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 1.15;
+    color: #1a1b22;
+   
+}
+
+.cards__btn{
+    background-color: #fff;
+    border-radius: 80px;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.33;
+    color: #1a1b22;
+    min-width: 288px;
+    border: none;
+    padding: 20px;
+    align-self: center;
+
+}
+
+.cards__btn:hover{
+    opacity: .9;
+    background-color: #E8E8E8;
+}
