@@ -6,6 +6,7 @@ import NewsCardList from '../NewsCardList/NewsCardList.js';
 import About from '../About/About';
 import Footer from '../Footer/Footer';
 import './App.css';
+import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <div className="page">
       
       <SearchForm />
+      <SavedNewsHeader />
       <NothingFound />
       <Preloader />
       <NewsCardList />

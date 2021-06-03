@@ -1,0 +1,37 @@
+.saved{
+    background-color: #fff;
+    margin: 0 auto;
+    width: calc(100% - 2* 104px)
+}
+.saved__heading{
+    font-family: 'Roboto',Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 1.33;
+    color: rgba(26, 27, 34, 0.5);    
+}
+
+.saved__title{
+    font-family: 'Roboto Slab', 'Roboto',Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 1.15;
+    color: #1a1b22;
+    max-width: 530px;
+}
+
+.saved__key{
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.33;
+    color: #1a1b22;
+}
+
+.saved__keywords{
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.33;
+    color: #1a1b22;
+}
