@@ -29,3 +29,17 @@
     opacity: .5;
     border-bottom: 3px solid #fff;
 }
+
+@media screen and (max-width: 800px){
+    .nav__text{
+        font-size: 16px;
+
+    }
+
+    .nav__btn{
+        padding: 8px 12px;
+        margin: 14px 0px;
+        min-width: 152px;
+        max-height: 40px;
+    }
+}
