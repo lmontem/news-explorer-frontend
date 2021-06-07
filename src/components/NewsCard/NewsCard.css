@@ -1,46 +1,75 @@
-.card{
+.card {
     border-radius: 16px;
     max-width: 400px;
     background-color: #fff;
-   
 }
-.card:hover{
+
+.card:hover {
     box-shadow: 0 10px 58px rgba(8, 29, 45, 0.1);
 }
 
-.card__img{
+.card__img {
     border-radius: 16px 16px 0 0;
+    background-image: url('../../images/dog-card.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 272px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
-.card__date{
+.card__btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    margin-top: 24px;
+    margin-right: 24px;
+    border: none;
+    background-image: url('../../images/bookmark.svg');
+    background-repeat: no-repeat;
+    background-size: 14px 19px;
+    background-position: center;
+    background-color: #fff;
+}
+
+.card__btn:hover {
+    background-color: #000;
+}
+
+.card__date {
     font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
     font-weight: normal;
     font-size: 18px;
     line-height: 1.33;
     color: #B6BCBF;
-    margin: 20px 24px 12px;    
-
+    margin: 20px 24px 12px;
 }
 
-.card__title{
+.card__title {
     font-family: 'Roboto Slab', 'Roboto', Arial, Helvetica, sans-serif;
     font-weight: normal;
     font-size: 26px;
     line-height: 1.15;
     color: #1A1B22;
     margin: 0 24px 16px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    
 }
 
-.card__description{
-    font-family: 'Roboto',Arial, Helvetica, sans-serif;
+.card__description {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
     font-weight: normal;
     font-size: 16px;
     line-height: 1.37;
-    color:  #1A1B22;
+    color: #1A1B22;
     margin: 0 24px 18px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
-.card__keyword{
+.card__keyword {
     font-family: 'Roboto Slab', 'Roboto', Arial, Helvetica, sans-serif;
     font-weight: 700;
     font-size: 16px;
@@ -49,4 +78,60 @@
     text-transform: uppercase;
     letter-spacing: 0.4px;
     margin: 0 24px 24px;
+}
+
+@media screen and (max-width: 800px) {
+    .card {
+        max-width: 224px;
+        max-height: 420px;
+    }
+    .card__img {
+        min-height: 150px;
+    }
+    .card__btn {
+        margin-top: 8px;
+        margin-right: 8px;
+    }
+    .card__date{
+        margin: 16px 15px 12px;
+    }
+    .card__title{
+        font-size: 22px;
+        line-height: 1.09;
+        margin-bottom: 10px;
+    }
+    .card__description{
+        margin: 0 16px 12px;
+    }
+    .card__keyword{
+        margin: 0 16px 16px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .card {
+        min-width: 288px;
+        max-height: 440px;
+    }
+    .card__img {
+        min-height: 196px;
+    }
+    .card__btn {
+        margin-top: 16px;
+        margin-right: 16px;
+    }
+    .card__date{
+        margin: 16px 16px 10px;
+    }
+    .card__title{
+        font-size: 22px;
+        line-height: 1.09;
+        margin-bottom: 14px;
+        
+    }
+    .card__description{
+        margin: 0 32px 8px;
+        max-height: 88px;
+    }
+    
 }
