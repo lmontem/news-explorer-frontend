@@ -102,16 +102,18 @@
     }
     .card__description{
         margin: 0 16px 12px;
+        max-height: 88px;
     }
     .card__keyword{
         margin: 0 16px 16px;
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 400px) {
     .card {
-        min-width: 288px;
+        max-width: 288px;
         max-height: 440px;
+        
     }
     .card__img {
         min-height: 196px;
@@ -131,7 +133,7 @@
     }
     .card__description{
         margin: 0 32px 8px;
-        max-height: 88px;
+        
     }
     
 }
