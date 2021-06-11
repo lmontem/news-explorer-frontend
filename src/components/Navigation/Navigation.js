@@ -1,11 +1,14 @@
+import { Link } from 'react-router-dom';
+
 function Navigation(props) {
     return (
         (
             <nav className= 'nav'>
-                <a className='nav__text' href='home'>Home</a> {/*need to have underline on border when on page(home or saved artiles) */}
-                <a className='nav__text' href='saved'>Saved articles</a> {/*need only when user is signed in */}
+                <Link className='nav__text' exact to='/'>Home</Link> {/*need to have underline on border when on page(home or saved artiles) */}
+                <Link className='nav__text' exact to='/saved-news'>Saved articles</Link> {/*need only when user is signed in */}
                 <button onClick= {props.handleRegisterClick} className='nav__btn nav__text'>Sign in</button> {/*changes to user name when user is signed in */}
             </nav>
+           
         )
     )
 }

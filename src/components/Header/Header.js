@@ -4,7 +4,7 @@ function Header(props) {
     return(
         (
             <header className= 'header'>
-                <p className='header__logo'>NewsExplorer</p>
+                <a className='header__logo' href='/'>NewsExplorer</a>
                 <Navigation
                  />
             </header>
