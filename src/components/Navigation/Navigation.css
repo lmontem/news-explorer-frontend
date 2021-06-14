@@ -15,6 +15,10 @@
     text-decoration: none;
 }
 
+.nav__text_black{
+    color: #1A1B22;
+}
+
 .nav__btn{
     border-radius: 100px;
     border: 1px solid #fff;

@@ -1,6 +1,6 @@
 import facebookLogo from '../../images/facebook-logo.svg';
 import githubLogo from '../../images/github-logo.svg';
-function Footer(props){
+function Footer(){
     return(
         (
             <footer className='footer'>

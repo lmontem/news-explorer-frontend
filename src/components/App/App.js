@@ -1,34 +1,34 @@
 
 import React, {useState} from 'react';
-import { Route, Switch} from 'react-router-dom';
+import { Route, Switch, useLocation} from 'react-router-dom';
 import Main from '../Main/Main.js';
 import SavedNews from '../SavedNews/SavedNews.js';
-import Header from '../Header/Header.js';
-import NothingFound from '../NothingFound/NothingFound.js';
-import Preloader from '../Preloader/Preloader.js';
+import Header from '../Header/Header';
 import NewsCardList from '../NewsCardList/NewsCardList.js';
 import About from '../About/About.js';
 import Footer from '../Footer/Footer.js';
 import './App.css';
-import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
 import RegisterPopup from '../RegisterPopup/RegisterPopup.js';
 
 
 function App() {
-  const[isRegisterPopupOpen, setRegisterPopupOpen] = useState(false);
-
-  function handleRegisterClick(){
+ // const[isRegisterPopupOpen, setRegisterPopupOpen] = useState(false);
+  const location = useLocation();
+  const savedNewsLocation = location.pathname === '/saved-news';
+  /*function handleRegisterClick(){
     setRegisterPopupOpen(true);
-  }
+  }*/
   return (
   (<>
     <div className="page">
-      
+      <Header 
+      savedNewsLocation={savedNewsLocation}
+      />
       <Switch>
         <Route exact path='/'>
           <Main />
         </Route>
-        <Route exact path='/saved-news'>
+        <Route path='/saved-news'>
           <SavedNews />
         </Route>
       </Switch>
@@ -38,7 +38,8 @@ function App() {
       <About />
       <Footer />
       <RegisterPopup
-       isOpen={isRegisterPopupOpen} />
+      // isOpen={isRegisterPopupOpen}
+       />
     </div>
     </>
   )
