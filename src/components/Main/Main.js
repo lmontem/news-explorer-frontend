@@ -1,4 +1,3 @@
-import Header from '../Header/Header';
 import NothingFound from '../NothingFound/NothingFound';
 import Preloader from '../Preloader/Preloader';
 import SearchForm from "../SearchForm/SearchForm";

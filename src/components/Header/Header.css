@@ -1,9 +1,9 @@
 .header{
     display: flex;
     border-bottom: 3px solid #D1D2D6;
-    box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.2);
     justify-content: space-between;
     background: transparent;
+    
 }
 
 .header__logo{
