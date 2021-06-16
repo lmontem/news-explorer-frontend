@@ -8,7 +8,8 @@ function Header(props) {
             <header className= 'header'>
                 <Link className={`header__logo header__logo_${props.savedNewsLocation  ? 'black' : ''}`} to= '/' >NewsExplorer</Link>
                 <Navigation
-                 savedNewsLocation={props.savedNewsLocation}/>
+                 savedNewsLocation={props.savedNewsLocation}
+                onSigninClick={props.onSigninClick}/>
             </header>
         )
     )
