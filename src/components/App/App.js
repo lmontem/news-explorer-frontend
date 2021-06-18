@@ -11,7 +11,7 @@ import './App.css';
 import RegisterPopup from '../RegisterPopup/RegisterPopup.js';
 import LoginPopup from '../LoginPopup/LoginPopup.js';
 import ConfirmationPopup from '../ConfirmationPopup/ConfirmationPopup';
-
+import {smallscreen} from '../../utils/constants.js';
 
 function App() {
   const [isRegisterPopupOpen, setRegisterPopupOpen] = useState(false);
@@ -19,11 +19,23 @@ function App() {
   const [isConfirmationPopupOpen, setConfirmationPopupOpen] = useState(false);
   const location = useLocation();
   const savedNewsLocation = location.pathname === '/saved-news';
+  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
+  const [isMobile, setMobile] = React.useState(false);
+  const [isMobileNavOpen, setMobileNavOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleWindowResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleWindowResize);
+    windowWidth < smallscreen ? setMobile(true) : setMobile(false);
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, [windowWidth]);
+
   function handleRegisterLinkClick() {
     setRegisterPopupOpen(true);
     setLoginPopupOpen(false);
   }
   function handleSignInClick() {
+    console.log("signin");
     setLoginPopupOpen(true);
     setRegisterPopupOpen(false);
   }
@@ -39,6 +51,13 @@ function App() {
     setConfirmationPopupOpen(false);
   }
   
+  function handleHamburgerClick() {
+    setMobileNavOpen(true);
+  }
+
+  function handleMobileNavClose() {
+    setMobileNavOpen(false);
+  }
 
   return (
     (<>
@@ -46,6 +65,10 @@ function App() {
         <Header
           savedNewsLocation={savedNewsLocation}
           onSigninClick={handleSignInClick}
+          mobile={isMobile}
+          mobileNavOpen={isMobileNavOpen}
+          onHamburgerClick={handleHamburgerClick}
+          onClose={handleMobileNavClose}
         />
         <Switch>
           <Route exact path='/'>

@@ -1,0 +1,1 @@
+export const smallscreen = 420;

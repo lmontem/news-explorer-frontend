@@ -21,6 +21,10 @@
     color: #1A1B22;
 }
 
+.header__hamburger{
+    z-index: 1;
+}
+
 @media  screen and (max-width: 800px) {
     .header__logo{
         margin-left: 40px;
