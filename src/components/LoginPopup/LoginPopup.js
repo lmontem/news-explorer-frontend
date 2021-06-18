@@ -18,9 +18,9 @@ function LoginPopup(props) {
             >
                 <div className="login" >
                     <label className='login__label'>Email</label>
-                    <input className="login__input" placeholder="Enter your email" name="email" type="email" value={email} onChange={(e) => { setEmail(e.target.value) }} />
+                    <input className="login__input" placeholder="Enter your email" name="email" type="email" required value={email} onChange={(e) => { setEmail(e.target.value) }} />
                     <label className='login__label'>Password</label>
-                    <input className="login__input" placeholder="Enter password" name="password" type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} />
+                    <input className="login__input" placeholder="Enter password" name="password" type="password" required value={password} onChange={(e) => { setPassword(e.target.value) }} />
                     <button type="submit" className="login__btn">Sign in</button>
                     <div className="login__signup">
                         <p className='login__or'>or

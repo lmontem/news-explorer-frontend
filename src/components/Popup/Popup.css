@@ -93,4 +93,7 @@
     .popup__title{
         padding-left: 0px;
     }
+    .popup__form{
+        padding-left: 0px;
+      }
 }

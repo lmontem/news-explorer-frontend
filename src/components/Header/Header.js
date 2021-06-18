@@ -25,8 +25,7 @@ function Header(props) {
                 )}
                 {props.mobile && (
                     <button
-                        className={`header__hamburger header__hamburger_${props.savedNewsLocation
-                            }`}
+                        className={`header__hamburger header__hamburger_${props.savedNewsLocation ? 'black' : ''}`}
                         onClick={props.onHamburgerClick}
                     ></button>
                         )}

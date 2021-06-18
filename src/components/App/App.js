@@ -34,10 +34,10 @@ function App() {
     setRegisterPopupOpen(true);
     setLoginPopupOpen(false);
   }
-  function handleSignInClick() {
-    console.log("signin");
+  function handleSignInClick() {    
     setLoginPopupOpen(true);
     setRegisterPopupOpen(false);
+    setMobileNavOpen(false);
   }
   function handleSignup(e){
     e.preventDefault();

@@ -22,11 +22,32 @@
 }
 
 .header__hamburger{
+    background-image: url('../../images/menu.svg');
+    border: none;
+    background-color: transparent;
+    background-position: center;
+    background-size: cover;
+    margin-right: 16px;
     z-index: 1;
 }
 
+.header__hamburger_black{
+    background-image: url('../../images/menu-black.svg');
+}
+
+.header__hamburger-hidden{
+    display: none;
+}
+
 @media  screen and (max-width: 800px) {
+    
     .header__logo{
         margin-left: 40px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .header{
+        padding-top: 16px;
     }
 }

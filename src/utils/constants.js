@@ -1,1 +1,1 @@
-export const smallscreen = 420;
+export const smallscreen = 600;
