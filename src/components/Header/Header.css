@@ -35,7 +35,7 @@
     background-image: url('../../images/menu-black.svg');
 }
 
-.header__hamburger-hidden{
+.header__hamburger_hidden{
     display: none;
 }
 
