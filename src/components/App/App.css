@@ -1,17 +1,18 @@
 
 .page{
-    margin: 0;
+    margin: 0 auto;
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
       sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    max-width: 1440px;
 }
 
 .background{
   background-image: url('../../images/phone-background.png');
   background-repeat: no-repeat;
   background-size: cover;
-  margin-top: -80px;
+  margin-top: -87px;   
   
 }

@@ -1,4 +1,9 @@
-.main__container{
+.main {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.main__container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -27,7 +32,6 @@
 }
 
 @media screen and (max-width: 800px) {
-    
     .main__header {
         font-size: 36px;
         line-height: 1.11;
@@ -38,24 +42,25 @@
         max-width: 452px;
     }
 }
+
 @media screen and (max-width: 600px) {
-    
-    .main__header{
+    .main__header {
         margin-top: 100px;
     }
 }
+
 @media screen and (max-width: 500px) {
-    .main__header{
+    .main__header {
         margin-left: 20px;
     }
-    .main__text{
+    .main__text {
         margin-left: 20px;
     }
     .search__header {
         max-width: 285px;
         margin-top: 30px;
     }
-    .search__text{
+    .search__text {
         max-width: 288px;
     }
 }

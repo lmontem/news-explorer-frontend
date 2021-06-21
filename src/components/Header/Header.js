@@ -14,6 +14,8 @@ function Header(props) {
                         onSigninClick={props.onSigninClick}
                         onClose={props.onClose}
                         mobile={props.mobile}
+                        loggedin={props.loggedin}
+                        onSignOut={props.onSignOut}
                     />
                 ) : (
                     <Navigation
@@ -21,6 +23,8 @@ function Header(props) {
                         onSigninClick={props.onSigninClick}
                         mobile={props.mobile}
                         mobileMenuOpen={props.mobileMenuOpen}
+                        loggedin={props.loggedin}
+                        onSignOut={props.onSignOut}
                     />
                 )}
                 {props.mobile && (

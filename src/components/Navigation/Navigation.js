@@ -1,16 +1,30 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import signout from '../../images/sign-out.svg';
+import signoutwhite from '../../images/sign-out-white.svg';
 
 function Navigation(props) {
-    
+
     const isMobile = props.mobile ? "mobile" : "";
 
     return (
         (
             <nav className={`nav_${isMobile} nav`}>
-                    <Link className={`nav__text nav__text_${props.savedNewsLocation ? 'black' : ''}`} exact to='/'>Home</Link> 
-                    <Link className={`nav__text nav__text_${props.savedNewsLocation ? 'black' : ''}`} exact to='/saved-news'>Saved articles</Link> {/*need only when user is signed in */}
-                    <button onClick={props.onSigninClick}
-                        className={` nav__btn nav__text nav__text_${props.savedNewsLocation ? 'black' : ''}`}>Sign in</button> {/*changes to user name when user is signed in */}
+                <NavLink className={`nav__text nav__text_${props.savedNewsLocation ? 'black' : ''}`} activeClassName='nav__text_active' exact to='/'>Home</NavLink>
+                {props.loggedin ?
+                    (<NavLink className={`nav__text nav__text_${props.savedNewsLocation ? 'black' : ''}`} activeClassName='nav__text_active nav__text_active-black' exact to='/saved-news'>
+                        Saved articles</NavLink>) : null}
+                    {!props.loggedin ? (
+                        <button onClick={props.onSigninClick}
+                        className={` nav__btn nav__text nav__btn_${props.savedNewsLocation ? 'black' : ''} nav__text_${props.savedNewsLocation ? 'black' : ''}`}>
+                            Sign in</button>
+                    ): (
+                    <button onClick={props.onSignOut}
+                    className={` nav__btn nav__text nav__btn_${props.savedNewsLocation ? 'black' : ''} nav__text_${props.savedNewsLocation ? 'black' : ''}`}>
+                       <span className='nav__btn-username'>Username{/*will need to be props.username in stage-3*/}</span> 
+                        <img src={props.savedNewsLocation ? signout : signoutwhite}
+                        className='nav__signout'alt='signout' />
+                    </button>)}
+               
             </nav>
 
         )

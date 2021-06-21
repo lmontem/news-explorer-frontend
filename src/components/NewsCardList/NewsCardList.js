@@ -8,6 +8,7 @@ function NewsCardList(props) {
                 <h2 className='cards__title'>Search results</h2>
                 <div className='cards__list'>
                     <NewsCard 
+                    loggedin={props.loggedin}
                     savedNewsLocation= {props.savedNewsLocation}/>
                 </div>
 

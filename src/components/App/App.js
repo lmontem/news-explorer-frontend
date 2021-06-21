@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import Main from '../Main/Main.js';
 import SavedNews from '../SavedNews/SavedNews.js';
 import Header from '../Header/Header';
@@ -22,7 +22,8 @@ function App() {
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
   const [isMobile, setMobile] = React.useState(false);
   const [isMobileNavOpen, setMobileNavOpen] = React.useState(false);
-
+  const [loggedin, setLoggedin] = useState(false);
+  const history= useHistory();
   React.useEffect(() => {
     const handleWindowResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowResize);
@@ -59,20 +60,37 @@ function App() {
     setMobileNavOpen(false);
   }
 
+  function handleSignIn(e){ 
+    e.preventDefault();
+    setLoggedin(true);   
+    history.push('/saved-news');
+    closeAllPopups();   
+  }
+
+  function handleSignOut(e){
+    e.preventDefault();
+    setLoggedin(false);
+    history.push('/');
+  }
+
   return (
     (<>
       <div className="page">
         <Header
           savedNewsLocation={savedNewsLocation}
           onSigninClick={handleSignInClick}
+          onSignOut={handleSignOut}
           mobile={isMobile}
           mobileNavOpen={isMobileNavOpen}
           onHamburgerClick={handleHamburgerClick}
           onClose={handleMobileNavClose}
+          loggedin={loggedin}
+        
         />
         <Switch>
           <Route exact path='/'>
             <Main
+            
             />
           </Route>
           <Route path='/saved-news'>
@@ -82,6 +100,7 @@ function App() {
         </Switch>
 
         <NewsCardList
+          loggedin={loggedin}
           savedNewsLocation={savedNewsLocation} />
         <About />
         <Footer />
@@ -89,6 +108,7 @@ function App() {
           onSignupClick={handleRegisterLinkClick}
           onClose={closeAllPopups}
           isOpen={isLoginPopupOpen}
+          onSubmit={handleSignIn}
         />
         <RegisterPopup
           onSigninClick={handleSignInClick}

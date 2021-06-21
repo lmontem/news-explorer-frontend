@@ -3,6 +3,7 @@
     width: 50%;
     justify-content: space-evenly;
     
+    
 }
 
 .nav__text{
@@ -30,10 +31,25 @@
     margin: 19px 0px;
     
 }
+.nav__btn_black{
+    border: 1px solid #1A1B22;
+}
+.nav__btn-username{
+    text-overflow: ellipsis;
+    margin-right: 20px;
+}
 
 .nav__text:hover{
     opacity: .5;
     border-bottom: 3px solid #fff;
+}
+
+.nav__text_active{
+    border-bottom: 3px solid #fff;
+}
+
+.nav__text_active-black{
+    border-bottom: 3px solid #1A1B22;
 }
 
 .nav__close-btn{

@@ -12,8 +12,8 @@ function LoginPopup(props) {
             <Popup
                 isOpen={props.isOpen}
                 onClose={props.onClose}
-                
-                // onSubmit={handleSubmit}
+
+                onSubmit={props.handleSignin}
                 name='sign-in' title='Sign in'
             >
                 <div className="login" >
@@ -21,10 +21,10 @@ function LoginPopup(props) {
                     <input className="login__input" placeholder="Enter your email" name="email" type="email" required value={email} onChange={(e) => { setEmail(e.target.value) }} />
                     <label className='login__label'>Password</label>
                     <input className="login__input" placeholder="Enter password" name="password" type="password" required value={password} onChange={(e) => { setPassword(e.target.value) }} />
-                    <button type="submit" className="login__btn">Sign in</button>
+                    <button type="submit" className="login__btn" aria-label="Sign in" onClick={props.onSubmit}>Sign in</button>
                     <div className="login__signup">
                         <p className='login__or'>or
-                <span className="login__link" onClick={props.onSignupClick}>Sign up</span>
+                            <span className="login__link" onClick={props.onSignupClick}>Sign up</span>
                         </p>
                     </div>
                 </div>

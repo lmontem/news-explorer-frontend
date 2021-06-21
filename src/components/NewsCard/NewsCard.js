@@ -5,7 +5,7 @@ function NewsCard(props) {
             <div className='card'>
                 <div className='card__img'>
                     <div className='card__btn-container'>
-                        <div className='card__keyword-display'>keywords</div>
+                        {props.loggedin ? (<div className='card__keyword-display'>keywords</div>) : null}                        
                         <button className='card__btn-signin'>Sign in to save articles</button>{/*text needs to change depending on if logged in*/}
                         <button className={`card__btn card__btn_${props.savedNewsLocation ? 'trashcan' : ''}`}></button>
                     </div>

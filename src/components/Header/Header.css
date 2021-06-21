@@ -1,12 +1,17 @@
-.header{
+.header {
     display: flex;
-    border-bottom: 3px solid #D1D2D6;
+    border-bottom: 1px solid #d1d2d6;
+    box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.2);
+    box-sizing: border-box;
+    z-index: 1;
     justify-content: space-between;
     background: transparent;
-    
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
 }
 
-.header__logo{
+.header__logo {
     font-family: 'Roboto Slab', 'Roboto', Arial, Helvetica, sans-serif;
     color: #fff;
     font-size: 20px;
@@ -17,37 +22,36 @@
     text-decoration: none;
 }
 
-.header__logo_black{
+.header__logo_black {
     color: #1A1B22;
 }
 
-.header__hamburger{
+.header__hamburger {
     background-image: url('../../images/menu.svg');
     border: none;
     background-color: transparent;
     background-position: center;
     background-size: cover;
     margin-right: 16px;
-    z-index: 1;
+    
 }
 
-.header__hamburger_black{
+.header__hamburger_black {
     background-image: url('../../images/menu-black.svg');
 }
 
-.header__hamburger_hidden{
+.header__hamburger_hidden {
     display: none;
 }
 
-@media  screen and (max-width: 800px) {
-    
-    .header__logo{
+@media screen and (max-width: 800px) {
+    .header__logo {
         margin-left: 40px;
     }
 }
 
 @media screen and (max-width: 600px) {
-    .header{
+    .header {
         padding-top: 16px;
     }
 }
