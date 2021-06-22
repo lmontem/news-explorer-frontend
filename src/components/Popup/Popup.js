@@ -17,7 +17,7 @@ function Popup(props) {
     }
     return (
         (
-            <div className={`popup popup__type_${props.name} ${props.isOpen ? "popup__opened" : ""}`} onClick={handleOverlayClick} >
+            <div className={`popup popup_type_${props.name} ${props.isOpen ? "popup__opened" : ""}`} onClick={handleOverlayClick} >
                 <div className="popup__box">
                     <button className="popup__close-btn" type="button" aria-label="Close" onClick={props.onClose}></button>
                     <div className="popup__container">

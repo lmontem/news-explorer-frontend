@@ -1,7 +1,6 @@
 .cards{
     background-color: #F5F6F7;
-    padding-bottom: 80px;
-  
+    padding-bottom: 80px;  
     
 }
 .cards__block{
@@ -14,10 +13,14 @@
 
 .cards__list{
     display: grid;
-    grid-template-columns: repeat(3, 400px);
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    /*grid-template-columns: repeat(3, 400px);*/
+    max-width: 1440px;
+    width: auto;
     gap: 16px;
     padding-bottom: 64px;
-    justify-content: center;
+    padding-left: 0;
+    justify-items: center;
 }
 
 .cards__title{
@@ -26,7 +29,7 @@
     font-size: 40px;
     line-height: 1.15;
     color: #1a1b22;
-    
+    margin-left: 16px;
 }
 
 .cards__btn{
@@ -53,11 +56,9 @@
     .cards{
         padding-bottom: 40px;
     }
-    .cards__block{
-        width: calc(100% - 2* 40px);
-    }
+    
     .cards__list{
-        grid-template-columns: repeat(auto-fit, minmax(min-content, 224px));
+        grid-template-columns: repeat(auto-fit, minmax(224px, 1fr));
         gap: 8px;
         padding-bottom: 32px;
     }
@@ -67,17 +68,16 @@
     .cards{
         padding-bottom: 32px;
     }
-    .cards__block{
-        width: calc(100% - 2* 16px);
-    }
+    
     .cards__list{
-        grid-template-columns: repeat(auto-fit, minmax(min-content, 288px));
+        grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
         gap: 8px;
         padding-bottom: 15px;
     }
     .cards__title{
         font-size: 30px;
         line-height: 1.13;
+                       
     }
     .cards__btn{
         padding: 16px;

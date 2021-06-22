@@ -4,8 +4,6 @@ import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import Main from '../Main/Main.js';
 import SavedNews from '../SavedNews/SavedNews.js';
 import Header from '../Header/Header';
-import NewsCardList from '../NewsCardList/NewsCardList.js';
-import About from '../About/About.js';
 import Footer from '../Footer/Footer.js';
 import './App.css';
 import RegisterPopup from '../RegisterPopup/RegisterPopup.js';
@@ -90,19 +88,19 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <Main
-            
+              loggedin={loggedin}
+              savedNewsLocation={savedNewsLocation}
             />
           </Route>
           <Route path='/saved-news'>
             <SavedNews
+              loggedin={loggedin}
+              savedNewsLocation={savedNewsLocation}
             />
           </Route>
         </Switch>
-
-        <NewsCardList
-          loggedin={loggedin}
-          savedNewsLocation={savedNewsLocation} />
-        <About />
+    
+        
         <Footer />
         <LoginPopup
           onSignupClick={handleRegisterLinkClick}

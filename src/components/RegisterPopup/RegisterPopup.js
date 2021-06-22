@@ -15,7 +15,7 @@ function RegisterPopup(props) {
                 onSubmit={props.onSubmit}
                 name='sign-up' title='Sign up'
             >
-                <div className="register" >
+                <div className="login" >
                     <label className='login__label'>Email</label>
                     <input className="login__input" placeholder="Enter your email" name="email" type="email" required value={email} onChange={(e) => { setEmail(e.target.value) }} />
                     <label className='login__label'>Password</label>

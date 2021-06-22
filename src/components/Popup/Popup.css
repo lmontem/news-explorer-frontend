@@ -80,16 +80,20 @@
 }
 
 @media screen and (max-width:600px) {
+    
     .popup__box {
         width: 320px;
+        margin-top: 56px;
     }
     .popup__container {
         padding-left: 17px;
+        height: 100vh;
     }
     .popup__close-btn {
         width: 24px;
         height: 24px;
         margin-bottom: 16px;
+        margin-right: 16px;
     }
     .popup__title {
         padding-left: 0px;

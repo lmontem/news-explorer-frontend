@@ -8,8 +8,8 @@
 }
 
 .about__img{    
-    max-width: 464px;
-    min-height: 464px;
+    min-width: 464px;
+    max-height: 464px;
     border-radius: 50%;
 }
 
@@ -44,7 +44,7 @@
     }
     
     .about__img{    
-        max-width: 232px;
+        min-width: 232px;
         min-height: 232px; 
         margin-top: 61px;       
     }

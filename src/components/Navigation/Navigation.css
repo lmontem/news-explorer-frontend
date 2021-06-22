@@ -1,12 +1,10 @@
-.nav{
+.nav {
     display: flex;
     width: 50%;
     justify-content: space-evenly;
-    
-    
 }
 
-.nav__text{
+.nav__text {
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
     font-size: 18px;
     line-height: 24px;
@@ -14,14 +12,13 @@
     align-self: center;
     font-weight: 500;
     text-decoration: none;
-    
 }
 
-.nav__text_black{
+.nav__text_black {
     color: #1A1B22;
 }
 
-.nav__btn{
+.nav__btn {
     border-radius: 100px;
     border: 1px solid #fff;
     background-color: transparent;
@@ -29,30 +26,31 @@
     max-height: 48px;
     padding: 12px;
     margin: 19px 0px;
-    
 }
-.nav__btn_black{
+
+.nav__btn_black {
     border: 1px solid #1A1B22;
 }
-.nav__btn-username{
+
+.nav__btn-username {
     text-overflow: ellipsis;
     margin-right: 20px;
 }
 
-.nav__text:hover{
+.nav__text:hover {
     opacity: .5;
     border-bottom: 3px solid #fff;
 }
 
-.nav__text_active{
+.nav__text_active {
     border-bottom: 3px solid #fff;
 }
 
-.nav__text_active-black{
+.nav__text_active-black {
     border-bottom: 3px solid #1A1B22;
 }
 
-.nav__close-btn{
+.nav__close-btn {
     background-image: url('../../images/close.svg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -61,17 +59,15 @@
     border: none;
     margin-right: 16px;
     width: 24px;
-    height: 24px;    
+    height: 24px;
     z-index: 2;
 }
 
-@media screen and (max-width: 800px){
-    .nav__text{
+@media screen and (max-width: 800px) {
+    .nav__text {
         font-size: 16px;
-
     }
-
-    .nav__btn{
+    .nav__btn {
         padding: 8px 12px;
         margin: 14px 0px;
         min-width: 152px;
@@ -79,24 +75,24 @@
     }
 }
 
-
-@media screen and (max-width: 600px){
-    .nav_mobile{
-    height: auto;
-    flex-direction: column;
-    padding-left: 30px;
-    align-self: center;
-    margin-top: 20px;
+@media screen and (max-width: 600px) {
+    .nav_mobile {
+        height: auto;
+        flex-direction: column;
+        padding-left: 30px;
+        align-self: center;
+        margin-top: 20px;
     }
-    
-    .nav__text{
+    .nav__text {
         font-size: 18px;
     }
-    .nav__btn{
-      width: 288px;  
+    .nav__text_home {
+        align-self: left;/*not working! */
     }
-    .nav__hamburger{
+    .nav__btn {
+        width: 288px;
+    }
+    .nav__hamburger {
         z-index: 1;
     }
-    
 }

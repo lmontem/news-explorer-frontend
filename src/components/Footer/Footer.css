@@ -61,7 +61,7 @@
         margin: 0;
     }
     
-    .footer__list_item{
+    .footer__list-item{
         grid-row: 2/3;
         grid-column: 1/ span 3;
     }

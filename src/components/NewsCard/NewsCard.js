@@ -1,13 +1,17 @@
 
+
 function NewsCard(props) {
+
     return (
         (<>
             <div className='card'>
                 <div className='card__img'>
+                    {props.loggedin ? (<div className='card__keyword-display'
+                    >keywords</div>) : <div></div>}
                     <div className='card__btn-container'>
-                        {props.loggedin ? (<div className='card__keyword-display'>keywords</div>) : null}                        
-                        <button className='card__btn-signin'>Sign in to save articles</button>{/*text needs to change depending on if logged in*/}
-                        <button className={`card__btn card__btn_${props.savedNewsLocation ? 'trashcan' : ''}`}></button>
+                        <button className={`card__btn card__btn_${props.savedNewsLocation ? 'trashcan' : 'bookmark'}`}></button>
+                        {props.loggedin ? <button className='card__btn-signin'>Remove from saved</button> :
+                            <button className='card__btn-signin'>Sign in to save articles</button>}
                     </div>
                 </div>
                 <p className='card__date'>November 4, 2020</p>
@@ -17,11 +21,14 @@ function NewsCard(props) {
             </div>
             <div className='card'>
                 <div className='card__img'>
+
+                    {props.loggedin ? (<div className='card__keyword-display'>keywords</div>) : <div></div>}
                     <div className='card__btn-container'>
-                        <div className='card__keyword-display'>keywords</div>
-                        <button className='card__btn-signin'>Sign in to save articles</button>
-                        <button className={`card__btn card__btn_${props.savedNewsLocation ? 'trashcan' : ''}`}></button>
+                        <button className={`card__btn card__btn_${props.savedNewsLocation ? 'trashcan' : 'bookmark'}`}></button>
+                        {props.loggedin ? <button className='card__btn-signin'>Remove from saved</button> :
+                            <button className='card__btn-signin'>Sign in to save articles</button>}
                     </div>
+
                 </div>
                 <p className='card__date'>November 4, 2020</p>
                 <h3 className='card__title'>Everyone Needs a Special 'Sit Spot' in Nature</h3>
@@ -30,11 +37,14 @@ function NewsCard(props) {
             </div>
             <div className='card'>
                 <div className='card__img'>
+
+                    {props.loggedin ? (<div className='card__keyword-display'>keywords</div>) : <div></div>}
                     <div className='card__btn-container'>
-                        <div className='card__keyword-display'>keywords</div>
-                        <button className='card__btn-signin'>Sign in to save articles</button>
-                        <button className={`card__btn card__btn_${props.savedNewsLocation ? 'trashcan' : ''}`}></button>
+                        <button className={`card__btn card__btn_active card__btn_${props.savedNewsLocation ? 'trashcan' : 'bookmark'}`}></button>
+                        {props.loggedin ? <button className='card__btn-signin'>Remove from saved</button> :
+                            <button className='card__btn-signin'>Sign in to save articles</button>}
                     </div>
+
                 </div>
                 <p className='card__date'>November 4, 2020</p>
                 <h3 className='card__title'>Everyone Needs a Special 'Sit Spot' in Nature</h3>
