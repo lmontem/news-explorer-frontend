@@ -19,7 +19,7 @@
     font-size: 20px;
     line-height: 24px;
     font-weight: bold;
-    margin-left: 100px;
+    margin-left: 30px;
     align-self: center;
     text-decoration: none;
 }
@@ -45,12 +45,12 @@
 .header__hamburger_hidden {
     display: none;
 }
-
-@media screen and (max-width: 800px) {
-    .header__logo {
-        margin-left: 40px;
+@media screen and (max-width: 1024px) {
+    .header__logo{
+        margin-left: 16px;
     }
 }
+
 
 @media screen and (max-width: 600px) {
     .header {

@@ -7,7 +7,7 @@ function Header(props) {
     return (
         (
             <header className='header'>
-                <Link className={`header__logo header__logo_${props.savedNewsLocation ? 'black' : ''}`} to='/' >NewsExplorer</Link>
+                <Link className={`header__logo header__logo_${props.savedNewsLocation ? 'black' : 'null'}`} to='/' >NewsExplorer</Link>
                 {props.mobile ? (
                     <MobileNavigation
                         mobileNavOpen={props.mobileNavOpen}
@@ -29,7 +29,7 @@ function Header(props) {
                 )}
                 {props.mobile && (
                     <button
-                        className={`header__hamburger header__hamburger_${props.savedNewsLocation ? 'black' : ''} header__hamburger_${props.mobileNavOpen ? 'hidden' : ''}`}
+                        className={`header__hamburger header__hamburger_${props.savedNewsLocation ? 'black' : 'null'} header__hamburger_${props.mobileNavOpen ? 'hidden' : 'null'}`}
                         onClick={props.onHamburgerClick}
                     ></button>
                         )}
