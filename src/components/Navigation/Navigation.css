@@ -64,6 +64,7 @@
 }
 
 @media screen and (max-width: 800px) {
+    
     .nav__text {
         font-size: 16px;
     }
@@ -76,21 +77,30 @@
 }
 
 @media screen and (max-width: 600px) {
+    .nav{
+        width: 100%;
+    }
     .nav_mobile {
         height: auto;
         flex-direction: column;
-        padding-left: 30px;
         align-self: center;
-        margin-top: 20px;
     }
     .nav__text {
         font-size: 18px;
     }
     .nav__text_home {
-        align-self: left;/*not working! */
+        align-self: start;
+        margin: 28px 16px;
+    }
+    .nav__text_saved {
+        align-self: start;
+        margin-left: 16px;
+        margin-bottom: 28px;
     }
     .nav__btn {
         width: 288px;
+        align-self: start;
+        margin: 0px 16px;
     }
     .nav__hamburger {
         z-index: 1;

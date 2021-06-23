@@ -75,10 +75,6 @@
     padding-left: 36px;
 }
 
-.popup__form {
-    padding-left: 36px;
-}
-
 @media screen and (max-width:600px) {
     
     .popup__box {
@@ -96,9 +92,6 @@
         margin-right: 16px;
     }
     .popup__title {
-        padding-left: 0px;
-    }
-    .popup__form {
         padding-left: 0px;
     }
 }

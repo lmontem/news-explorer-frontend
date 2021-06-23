@@ -8,7 +8,9 @@
     background: transparent;
     width: 100%;
     max-width: 1440px;
+    max-height: 80px;
     margin: 0 auto;
+    position: relative;
 }
 
 .header__logo {
@@ -53,5 +55,6 @@
 @media screen and (max-width: 600px) {
     .header {
         padding-top: 16px;
+        padding-bottom: 15px;
     }
 }

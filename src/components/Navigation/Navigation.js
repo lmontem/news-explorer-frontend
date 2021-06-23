@@ -11,7 +11,7 @@ function Navigation(props) {
             <nav className={`nav_${isMobile} nav`}>
                 <NavLink className={`nav__text nav__text_home nav__text_${props.savedNewsLocation ? 'black' : ''}`} activeClassName='nav__text_active' exact to='/'>Home</NavLink>
                 {props.loggedin ?
-                    (<NavLink className={`nav__text nav__text_${props.savedNewsLocation ? 'black' : ''}`} activeClassName='nav__text_active nav__text_active-black' exact to='/saved-news'>
+                    (<NavLink className={`nav__text nav__text_saved nav__text_${props.savedNewsLocation ? 'black' : ''}`} activeClassName='nav__text_active nav__text_active-black' exact to='/saved-news'>
                         Saved articles</NavLink>) : null}
                     {!props.loggedin ? (
                         <button onClick={props.onSigninClick}
