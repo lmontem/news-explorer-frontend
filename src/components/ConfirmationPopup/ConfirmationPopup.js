@@ -1,0 +1,17 @@
+import Popup from "../Popup/Popup";
+
+function ConfirmationPopup(props) {
+    return (
+        (<Popup
+                isOpen={props.isOpen}
+                onClose={props.onClose}
+                name='confirm' title='Registration successfully completed!'
+            >
+                <div className="confirm__link login__link" onClick={props.SigninClick}>Sign in</div>
+            </Popup>
+        
+        )
+    )
+}
+
+export default ConfirmationPopup;

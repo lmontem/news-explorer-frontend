@@ -1,0 +1,60 @@
+.header {
+    display: flex;
+    border-bottom: 1px solid #d1d2d6;
+    box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.2);
+    box-sizing: border-box;
+    z-index: 1;
+    justify-content: space-between;
+    background: transparent;
+    width: 100%;
+    max-width: 1440px;
+    max-height: 80px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.header__logo {
+    font-family: 'Roboto Slab', 'Roboto', Arial, Helvetica, sans-serif;
+    color: #fff;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: bold;
+    margin-left: 30px;
+    align-self: center;
+    text-decoration: none;
+}
+
+.header__logo_black {
+    color: #1A1B22;
+}
+
+.header__hamburger {
+    background-image: url('../../images/menu.svg');
+    border: none;
+    background-color: transparent;
+    background-position: center;
+    background-size: cover;
+    margin-right: 16px;
+    
+}
+
+.header__hamburger_black {
+    background-image: url('../../images/menu-black.svg');
+}
+
+.header__hamburger_hidden {
+    display: none;
+}
+@media screen and (max-width: 1024px) {
+    .header__logo{
+        margin-left: 16px;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .header {
+        padding-top: 16px;
+        padding-bottom: 15px;
+    }
+}
