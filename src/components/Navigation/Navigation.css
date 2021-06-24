@@ -98,10 +98,17 @@
     }
     .nav__text {
         font-size: 18px;
+       
+    }
+    .nav__text_active{
+        border-bottom: none;
+    }
+    .nav__text_active-black{
+        border-bottom: none;
     }
     .nav__text_home {
         align-self: start;
-        margin: 28px 16px;
+        margin: 0px 16px;
     }
     .nav__text_saved {
         align-self: start;
@@ -112,6 +119,7 @@
         width: 288px;
         align-self: start;
         margin: 0px 16px;
+        
     }
     .nav__hamburger {
         z-index: 1;
