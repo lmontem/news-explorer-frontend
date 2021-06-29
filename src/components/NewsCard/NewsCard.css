@@ -11,16 +11,16 @@
 
 .card__img {
     border-radius: 16px 16px 0 0;
-    background-image: url('../../images/dog-card.png');
+    /* background-image: url('../../images/dog-card.png');*/
+    position: relative;
     background-repeat: no-repeat;
     background-position: center;
     min-height: 272px;
     display: flex;
     justify-content: space-between;
-   
 }
 
-.card__keyword-display{
+.card__keyword-display {
     min-width: 80px;
     height: 40px;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
@@ -34,7 +34,7 @@
     margin-top: 24px;
 }
 
-.card__btn-container{
+.card__btn-container {
     display: flex;
     flex-direction: row-reverse;
 }
@@ -52,34 +52,32 @@
     background-color: #fff;
 }
 
-.card__btn_bookmark{
+.card__btn_bookmark {
     background-image: url('../../images/bookmark.svg');
 }
 
 .card__btn_bookmark:hover {
-    background-image: url('../../images/bookmark-black.svg');    
+    background-image: url('../../images/bookmark-black.svg');
 }
 
-.card__btn_active{
+.card__btn_active {
     background-image: url('../../images/bookmark-active.svg');
 }
 
-.card__btn_active:hover{
+.card__btn_active:hover {
     background-image: url('../../images/bookmark-active.svg');
 }
 
-.card__btn_trashcan{
+.card__btn_trashcan {
     background-image: url('../../images/trashcan.svg');
     background-size: 18px 19px;
 }
 
-.card__btn_trashcan:hover{
+.card__btn_trashcan:hover {
     background-image: url('../../images/trashcan-black.svg');
-    
 }
 
-
-.card__btn-signin{
+.card__btn-signin {
     background-color: #fff;
     width: 182px;
     height: 40px;
@@ -87,18 +85,16 @@
     margin-top: 24px;
     margin-right: 5px;
     border: none;
-    font-family: 'Roboto',Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
     font-size: 12px;
     line-height: 14px;
     font-weight: 500;
     display: none;
 }
 
-
-.card__btn:hover + .card__btn-signin{
+.card__btn:hover+.card__btn-signin {
     display: block;
 }
-
 
 .card__date {
     font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
@@ -118,7 +114,6 @@
     margin: 0 24px 16px;
     text-overflow: ellipsis;
     overflow: hidden;
-    
 }
 
 .card__description {
@@ -155,22 +150,22 @@
         margin-top: 8px;
         margin-right: 8px;
     }
-    .card__date{
+    .card__date {
         margin: 16px 16px 12px;
     }
-    .card__title{
+    .card__title {
         font-size: 22px;
         line-height: 1.09;
         margin: 0 16px 16px;
     }
-    .card__description{
+    .card__description {
         margin: 0 16px 12px;
         max-height: 88px;
     }
-    .card__keyword{
+    .card__keyword {
         margin: 0 16px 16px;
     }
-    .card__keyword-display{
+    .card__keyword-display {
         margin-left: 8px;
         margin-top: 8px;
     }
@@ -190,15 +185,12 @@
         margin-top: 16px;
         margin-right: 16px;
     }
-    .card__date{
+    .card__date {
         margin: 16px 16px 10px;
     }
-    .card__title{
+    .card__title {
         font-size: 22px;
         line-height: 1.09;
         margin-bottom: 14px;
-        
     }
-    
-    
 }

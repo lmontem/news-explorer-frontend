@@ -13,6 +13,7 @@ import ConfirmationPopup from '../ConfirmationPopup/ConfirmationPopup';
 import { smallscreen } from '../../utils/constants.js';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 
+
 function App() {
   const [isRegisterPopupOpen, setRegisterPopupOpen] = useState(false);
   const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
@@ -26,8 +27,10 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [searchWord, setSearchWord] = useState('');
   const [results, setResults] = useState(false);
+  const [notFound, setNotFound] = useState(false);
   const [showPreloader, setShowPreloader] = useState(false);
   const [cards, setCards] = React.useState([]);
+  const [numCardsShown, setNumCardsShown] = useState(3);
   const [savedCards, setSavedCards] = React.useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const history = useHistory();
@@ -39,6 +42,15 @@ function App() {
     windowWidth < smallscreen ? setMobile(true) : setMobile(false);
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [windowWidth]);
+
+ React.useEffect(() => {
+    if (localStorage.getItem('searchResults')) {
+      setCards(JSON.parse(localStorage.getItem('searchResults')));
+    }
+    if (localStorage.getItem('savedCards')) {
+      setSavedCards(JSON.parse(localStorage.getItem('savedCards')));
+    }
+  }, []);
 
   //opens sign up form upon sign up link click
   function handleRegisterLinkClick() {
@@ -85,6 +97,12 @@ function App() {
     history.push('/');
   }
 
+  //shows more cards
+  function handleShowMoreCards() {
+    setNumCardsShown(numCardsShown + 3);
+  }
+  
+
   //handles submit of search form
   function handleSearchSubmit(e) {
     e.preventDefault();
@@ -93,13 +111,27 @@ function App() {
       setShowPreloader(false);
       setErrorMessage('Please enter a keyword');
       return
-    }else{
-      newsApi.getNewsCards(searchWord)
-      .then((newsCards)=>{
-        setCards(newsCards);
-      })
     }
-    
+    newsApi.getNewsCards(searchWord)
+      .then((data) => {
+        if (data.length === 0) {
+          setNotFound(true);
+        }
+       
+        return data;
+      })
+      .then((cards) => {
+        setNumCardsShown(3);
+        setCards(cards);
+        setResults(true);
+        setShowPreloader(false);
+        setErrorMessage('');
+      })
+      .catch(() => {
+        setErrorMessage("Sorry, something went wrong during the request. There may be a connection issue or the server may be down. Please try again later.")
+        setShowPreloader(false);
+      })
+
   }
   return (
     (<>
@@ -125,13 +157,20 @@ function App() {
                 errorMessage={errorMessage}
                 searchWord={searchWord}
                 setSearchWord={setSearchWord}
+                results={results}
+                notFound={notFound}
                 showPreloader={showPreloader}
+                cards={cards}
+                handleShowMoreCards={handleShowMoreCards}
+                numCardsShown={numCardsShown}
               />
             </Route>
             <Route path='/saved-news'>
               <SavedNews
                 loggedin={loggedin}
                 savedNewsLocation={savedNewsLocation}
+                cards={savedCards}
+                searchWord={searchWord}
               />
             </Route>
           </Switch>
