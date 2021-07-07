@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { newsApi } from '../../utils/NewsApi';
 import Main from '../Main/Main.js';
@@ -12,6 +12,8 @@ import LoginPopup from '../LoginPopup/LoginPopup.js';
 import ConfirmationPopup from '../ConfirmationPopup/ConfirmationPopup';
 import { smallscreen } from '../../utils/constants.js';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
+import { mainApi } from '../../utils/MainApi';
+
 
 
 function App() {
@@ -33,6 +35,10 @@ function App() {
   const [numCardsShown, setNumCardsShown] = useState(3);
   const [savedCards, setSavedCards] = React.useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [values, setValues] = React.useState({ email: '', password: '', username: '' });
+  const [errors, setErrors] = React.useState({});
+  const [isValid, setIsValid] = React.useState(false);
+  const [signinBtnDisabled, setSigninBtnDisabled] = React.useState(false);
   const history = useHistory();
 
   //determines size of window so mobile nav can be set
@@ -43,7 +49,7 @@ function App() {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [windowWidth]);
 
- React.useEffect(() => {
+  React.useEffect(() => {
     if (localStorage.getItem('searchResults')) {
       setCards(JSON.parse(localStorage.getItem('searchResults')));
     }
@@ -52,27 +58,69 @@ function App() {
     }
   }, []);
 
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    const newValues = {
+      ...values,
+      [name]: value,
+    };
+    setValues(newValues);
+    setErrors({ ...errors, [name]: errors[name] });
+    setIsValid(e.target.closest('form').checkValidity());
+  };
+
+  const resetForm = useCallback(
+    (
+      newValues = { email: '', password: '', username: '' },
+      newErrors = { email: '', password: '', username: '' },
+      newIsValid = false,
+    ) => {
+      setValues(newValues);
+      setErrors(newErrors);
+      setIsValid(newIsValid);
+    },
+    [setValues, setErrors, setIsValid],
+  );
+
   //opens sign up form upon sign up link click
   function handleRegisterLinkClick() {
     setRegisterPopupOpen(true);
     setLoginPopupOpen(false);
+    setSigninBtnDisabled(true);
   }
   //opens sign in form upon signin link/btn click
   function handleSignInClick() {
     setLoginPopupOpen(true);
     setRegisterPopupOpen(false);
     setMobileNavOpen(false);
+    setConfirmationPopupOpen(false);
   }
   //confirms sign up success
   function handleSignup(e) {
     e.preventDefault();
-    setConfirmationPopupOpen(true);
-    setRegisterPopupOpen(false);
+
+    mainApi
+      .register(values.email, values.password, values.username)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then(() => {
+        setConfirmationPopupOpen(true);
+        setRegisterPopupOpen(false);
+        resetForm();
+      })
+      .catch(err => console.log(err));
   }
+
+
   //closes all popups
   function closeAllPopups() {
     setRegisterPopupOpen(false);
     setLoginPopupOpen(false);
+    resetForm();
+    setSigninBtnDisabled(false);
     setConfirmationPopupOpen(false);
   }
   //opens mobile nav upon hamburger menu click
@@ -101,7 +149,7 @@ function App() {
   function handleShowMoreCards() {
     setNumCardsShown(numCardsShown + 3);
   }
-  
+
 
   //handles submit of search form
   function handleSearchSubmit(e) {
@@ -117,7 +165,7 @@ function App() {
         if (data.length === 0) {
           setNotFound(true);
         }
-       
+
         return data;
       })
       .then((cards) => {
@@ -180,12 +228,16 @@ function App() {
             onClose={closeAllPopups}
             isOpen={isLoginPopupOpen}
             onSubmit={handleSignIn}
+            handleFormChange={handleFormChange}
+            values={values}
           />
           <RegisterPopup
             onSigninClick={handleSignInClick}
             onClose={closeAllPopups}
             isOpen={isRegisterPopupOpen}
             onSubmit={handleSignup}
+            handleFormChange={handleFormChange}
+            values={values}
           />
           <ConfirmationPopup
             onSigninClick={handleSignInClick}

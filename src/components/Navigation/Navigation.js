@@ -20,7 +20,7 @@ function Navigation(props) {
                     ): (
                     <button onClick={props.onSignOut}
                     className={` nav__btn nav__text nav__btn_${props.savedNewsLocation ? 'black' : 'null'} nav__text_${props.savedNewsLocation ? 'black' : 'null'}`}>
-                       <span className='nav__btn-username'>Username{/*will need to be props.username in stage-3*/}</span> 
+                       <span className='nav__btn-username'>{props.name}</span> 
                         <img src={props.savedNewsLocation ? signout : signoutwhite}
                         className='nav__signout'alt='signout' />
                     </button>)}
