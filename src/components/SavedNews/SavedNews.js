@@ -10,7 +10,8 @@ function SavedNews(props) {
                         searchWord={props.searchWord}
                         cards={props.cards}
                         loggedin={props.loggedin}
-                        savedNewsLocation={props.savedNewsLocation} />
+                        savedNewsLocation={props.savedNewsLocation}
+                        onDelete={props.onDelete} />
                 </div>
             </section>
         )

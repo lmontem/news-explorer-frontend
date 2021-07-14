@@ -27,6 +27,7 @@ function Main(props) {
                             cards={props.cards}
                             numCardsShown={props.numCardsShown} 
                             searchWord={props.searchWord}
+                            handleSaveArticleClick={props.handleSaveArticleClick}
                             />
                        {props.numCardsShown < props.cards.length && (
                         <button className='cards__btn' onClick={props.handleShowMoreCards}>Show more</button>

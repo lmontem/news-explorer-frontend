@@ -78,8 +78,10 @@ class MainApi {
         console.log(username);
         return fetch(this._baseUrl + 'signup', {
             method: 'POST',
-            headers: { "Accept": "application/json",
-            "Content-Type": "application/json"},
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({ email, password, username })
         })
             .then((res) => {
@@ -93,16 +95,19 @@ class MainApi {
     login(email, password) {
         return fetch(this._baseUrl + 'signin', {
             method: 'POST',
-            headers: this._headers,
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({ email, password })
         })
             .then(res => {
                 return res.json()
             })
-            .then(data => {
+           /* .then(data => {
                 localStorage.setItem('jwt', data.token);
                 return
-            })
+            })*/
     }
 
     checkToken(token) {
@@ -121,5 +126,5 @@ class MainApi {
 
 export const mainApi = new MainApi({
     baseUrl: 'https://api.lmontem-news-explorer.students.nomoreparties.site/',
-    headers: { "Accept": "application/json", 'Content-Type': 'application/json'}
+    headers: { "Accept": "application/json", 'Content-Type': 'application/json' }
 });

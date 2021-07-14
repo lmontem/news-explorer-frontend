@@ -10,7 +10,7 @@ import './App.css';
 import RegisterPopup from '../RegisterPopup/RegisterPopup.js';
 import LoginPopup from '../LoginPopup/LoginPopup.js';
 import ConfirmationPopup from '../ConfirmationPopup/ConfirmationPopup';
-import { smallscreen } from '../../utils/constants.js';
+import { smallscreen, token } from '../../utils/constants.js';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { mainApi } from '../../utils/MainApi';
 
@@ -48,6 +48,41 @@ function App() {
     windowWidth < smallscreen ? setMobile(true) : setMobile(false);
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [windowWidth]);
+
+  /* React.useEffect(() => {
+     if (token) {
+       mainApi
+       .getUserInfo(token)
+         .then((data) => {
+           if (data) {
+             console.log(data);
+             setLoggedin(true);
+             setCurrentUser({
+               email: data.email,
+               name: data.name,
+             });
+           }
+         })
+         .catch((err) => console.log(err));
+     } else {
+       setLoggedin(false);
+     }
+   }, []);*/
+
+  React.useEffect(() => {
+    if (token) {
+      mainApi
+        .getUserInfo(token)
+        .then((res) => {
+          setCurrentUser(res);
+          console.log(res);
+          // findSavedCards(token);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
 
   React.useEffect(() => {
     if (localStorage.getItem('searchResults')) {
@@ -134,10 +169,56 @@ function App() {
   //handles sign in 
   function handleSignIn(e) {
     e.preventDefault();
-    setLoggedin(true);
-    history.push('/saved-news');
-    closeAllPopups();
+    mainApi
+      .login(values.email, values.password)
+      .then(res => {
+        console.log(res);
+        if (res.ok) {
+          return res.json();
+        }
+        if (!res.token) {
+          setErrors((prevState) => ({
+            ...prevState,
+            result: res.message,
+          }));
+
+          throw new Error(res.message);
+        }
+
+      })
+      .then(() => {
+        setLoggedin(true);
+        closeAllPopups();
+        resetForm();
+        history.push('/');
+      })
+      .catch(res => {
+        if (res === 400) {
+          console.log('one of the fields was filled in in correctly')
+        }
+        if (res === 401) {
+          console.log('user email not found')
+        }
+      })
   }
+
+  /* function handleCheckToken() {
+     const jwt = localStorage.getItem('jwt')
+     if (jwt) {
+       mainApi
+         .checkToken(jwt)
+         .then(res => {
+           if (res) {
+ 
+             setValues({ email: res.email, username: res.username });
+             setLoggedin(true);
+             history.push('/saved-news')
+           }
+         }
+         )
+         .catch(err => console.log(err))
+     }
+   }*/
   //handles sign out
   function handleSignOut(e) {
     e.preventDefault();
@@ -149,7 +230,70 @@ function App() {
   function handleShowMoreCards() {
     setNumCardsShown(numCardsShown + 3);
   }
+  //handles saving articles
+  /*   function bookmarkArticleClick(card) {
+    if (!loggedin) {
+      return handleSigninPopupClick();
+    }
+    if (!savedNewsLocation && loggedin) {
+      if (!card.isSaved) {
+        bookmarkCard(card, token)
+          .then((cardData) => {
+            cardData.isSaved = true;
+            const newCards = cards.map((c) => (c === card ? cardData : c));
+            const newSavedCards = [...savedCards, cardData];
+            setSavedCards(newSavedCards);
+            setCards(newCards);
+            localStorage.setItem('searchResults', JSON.stringify(newCards));
+            localStorage.setItem('savedCards', JSON.stringify(newSavedCards));
+          })
+          .catch((err) => console.log(err));
+      } else {
+        handleDeleteClick(card);
+      }
 
+      return;
+    }
+    if (savedNewsLocation) {
+      return handleDeleteClick(card);
+    }
+  }*/
+  function handleSaveArticleClick(card) {
+    if (!loggedin) {
+      return handleSignInClick();
+    }
+    if (!savedNewsLocation && loggedin) {
+      
+      if (!card.isSaved) {
+        mainApi.saveArticle(card, token)
+          .then((newCard) => {          
+            newCard.isSaved = true;
+            const newCards = cards.map((c) => c === card ? newCard : c);
+            const newSavedCards = [...savedCards, newCard];
+            setSavedCards(newSavedCards);
+            setCards(newCards);
+          })
+          .catch(err => console.log("Error: " + err));
+      } else {
+        handleArticleDelete(card);
+      }
+    }
+    if (savedNewsLocation) {
+      return handleArticleDelete(card);
+    }
+  }
+
+  //handles deleting article
+  function handleArticleDelete(artile) {
+    mainApi.removeArticle(artile._id, token)
+      .then(() => {
+        const newSavedCards = savedCards.filter((c) => c._id !== artile._id);
+        setSavedCards(newSavedCards);
+        const newCards = cards.map((c) => (c._id === artile._id ? artile : c));
+        setCards(newCards);
+      })
+      .catch(err => console.log("Error: " + err));
+  }
 
   //handles submit of search form
   function handleSearchSubmit(e) {
@@ -195,6 +339,7 @@ function App() {
             onClose={handleMobileNavClose}
             loggedin={loggedin}
 
+
           />
           <Switch>
             <Route exact path='/'>
@@ -211,6 +356,7 @@ function App() {
                 cards={cards}
                 handleShowMoreCards={handleShowMoreCards}
                 numCardsShown={numCardsShown}
+                handleSaveArticleClick={handleSaveArticleClick}
               />
             </Route>
             <Route path='/saved-news'>
@@ -219,6 +365,7 @@ function App() {
                 savedNewsLocation={savedNewsLocation}
                 cards={savedCards}
                 searchWord={searchWord}
+                onDelete={handleArticleDelete}
               />
             </Route>
           </Switch>
