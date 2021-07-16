@@ -18,7 +18,7 @@ function RegisterPopup(props) {
                     <label className='login__label'>Username</label>
                     <input className="login__input" placeholder="Enter your username" name="username" type="text" minLength={2} required value={props.values.username} onChange={props.handleFormChange} />
                     <span className='login__error'>This email is not available</span>
-                    <button type="submit" className="login__btn">Sign up</button>
+                    <button type="submit" className={props.isValid ? "login__btn" : "login__btn_disabled"}>Sign up</button>
 
 
                     <div className="login__signup">

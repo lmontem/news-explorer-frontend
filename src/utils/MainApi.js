@@ -10,6 +10,7 @@ class MainApi {
             headers: this._headers
         })
             .then(res => {
+                console.log(res);
                 if (res.ok) {
                     return res.json();//this makes object out of response
                 }
@@ -62,14 +63,13 @@ class MainApi {
     }
 
     register(email, password, username) {
-        
+
         return fetch(this._baseUrl + 'signup', {
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({ email, password, username })
         })
             .then((res) => {
-               
                 if (res.status === 201 || res.status === 200) {
                     return res.json();
                 }
@@ -85,11 +85,6 @@ class MainApi {
             .then(res => {
                 return res.json()
             })
-        /* .then(data => {
-             console.log(data);
-             localStorage.setItem('jwt', data.token);
-             return
-         })*/
     }
 
     checkToken(token) {

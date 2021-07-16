@@ -11,7 +11,6 @@ function SavedNews(props) {
                         cards={props.cards}
                         loggedin={props.loggedin}
                         savedNewsLocation={props.savedNewsLocation}
-                        onDelete={props.onDelete}
                         handleSaveArticleClick={props.handleSaveArticleClick} />
                 </div>
             </section>

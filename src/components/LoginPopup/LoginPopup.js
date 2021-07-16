@@ -14,7 +14,7 @@ function LoginPopup(props) {
                     <input className="login__input" placeholder="Enter your email" name="email" type="email" required value={props.values.email} onChange={props.handleFormChange} />
                     <label className='login__label'>Password</label>
                     <input className="login__input" placeholder="Enter password" name="password" type="password" required value={props.values.password} onChange={props.handleFormChange} />
-                    <button type="submit" className="login__btn" aria-label="Sign in" onClick={props.onSubmit}>Sign in</button>
+                    <button type="submit" className={props.isValid ? "login__btn" : "login__btn_disabled"} aria-label="Sign in" onClick={props.onSubmit}>Sign in</button>
                     <div className="login__signup">
                         <p className='login__or'>or
                             <span className="login__link" onClick={props.onSignupClick}>Sign up</span>

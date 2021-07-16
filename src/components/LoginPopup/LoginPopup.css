@@ -56,6 +56,22 @@
     opacity: .6;
 }
 
+.login__btn_disabled{
+    background-color: #e6e8eb;
+    color: #b6bcbf;
+    min-width: 360px;    
+    border-radius: 100px;
+    box-shadow: 0px 5px 15px rgba(14, 26, 57, 0.2);    
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.33;
+    border: none;
+    padding: 20px;
+    margin-top: 40px;
+    margin-left: 36px;
+}
+
 .login__or{
     font-family: 'Inter', Arial, Helvetica, sans-serif;
     font-size: 14px;

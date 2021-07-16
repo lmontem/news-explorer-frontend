@@ -38,7 +38,6 @@ function App() {
   const [values, setValues] = React.useState({ email: '', password: '', username: '' });
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
-  const [signinBtnDisabled, setSigninBtnDisabled] = React.useState(false);
   const history = useHistory();
 
   //determines size of window so mobile nav can be set
@@ -48,36 +47,17 @@ function App() {
     windowWidth < smallscreen ? setMobile(true) : setMobile(false);
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [windowWidth]);
-
-  /* React.useEffect(() => {
-     if (token) {
-       mainApi
-       .getUserInfo(token)
-         .then((data) => {
-           if (data) {
-             console.log(data);
-             setLoggedin(true);
-             setCurrentUser({
-               email: data.email,
-               name: data.name,
-             });
-           }
-         })
-         .catch((err) => console.log(err));
-     } else {
-       setLoggedin(false);
-     }
-   }, []);*/
+  
    React.useEffect(() => {
-    //debugger;
-    handleCheckToken();
-}, []);
+      handleCheckToken();
+});
 
   React.useEffect(() => {
     if (token) {
       mainApi
         .getUserInfo(token)
         .then((res) => {
+          console.log(res);
           setCurrentUser(res);
           findSavedArticles(token);
         })
@@ -124,7 +104,7 @@ function App() {
   function handleRegisterLinkClick() {
     setRegisterPopupOpen(true);
     setLoginPopupOpen(false);
-    setSigninBtnDisabled(true);
+   
   }
   //opens sign in form upon signin link/btn click
   function handleSignInClick() {
@@ -158,7 +138,6 @@ function App() {
     setRegisterPopupOpen(false);
     setLoginPopupOpen(false);
     resetForm();
-    setSigninBtnDisabled(false);
     setConfirmationPopupOpen(false);
   }
   //opens mobile nav upon hamburger menu click
@@ -175,9 +154,9 @@ function App() {
     mainApi
       .login(values.email, values.password)
       .then(res => {
-        console.log('what up bags');
+        
         handleCheckToken();
-        window.location.reload();
+       console.log(handleCheckToken);
         if (res.ok) {
           console.log(res);
           return res.json();
@@ -194,7 +173,6 @@ function App() {
 
       })
       .then(() => {
-        console.log('I am clicked');
         setLoggedin(true);
         closeAllPopups();
         resetForm();
@@ -230,6 +208,7 @@ function App() {
   //handles sign out
   function handleSignOut(e) {
     e.preventDefault();
+    localStorage.removeItem('jwt');
     setLoggedin(false);
     history.push('/');
   }
@@ -246,8 +225,7 @@ function App() {
     if (!savedNewsLocation && loggedin) {
       card.keyword = searchWord;
       card.source = card.source.name;
-        console.log(card);
-        //console.log(searchWord);
+        
         mainApi.saveArticle(card)
           .then((newCard) => {
             newCard.isSaved = true;
@@ -356,7 +334,7 @@ function App() {
                 savedNewsLocation={savedNewsLocation}
                 cards={savedCards}
                 searchWord={searchWord}
-                onDelete={handleArticleDelete}
+        
                 handleSaveArticleClick={ (card) => { handleSaveArticleClick(card) }}
               />
             </Route>
@@ -369,6 +347,7 @@ function App() {
             onSubmit={handleSignIn}
             handleFormChange={handleFormChange}
             values={values}
+            isValid={isValid}
           />
           <RegisterPopup
             onSigninClick={handleSignInClick}
@@ -377,6 +356,7 @@ function App() {
             onSubmit={handleSignup}
             handleFormChange={handleFormChange}
             values={values}
+            isValid={isValid}
           />
           <ConfirmationPopup
             onSigninClick={handleSignInClick}

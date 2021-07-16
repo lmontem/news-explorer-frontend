@@ -7,6 +7,7 @@ function Navigation(props) {
 
     const isMobile = props.mobile ? "mobile" : "null";
     const currentUser = React.useContext(CurrentUserContext)
+    //console.log(currentUser);
     return (
         (
             <nav className={`nav_${isMobile} nav`}>
@@ -21,7 +22,7 @@ function Navigation(props) {
                     ): (
                     <button onClick={props.onSignOut}
                     className={` nav__btn nav__text nav__btn_${props.savedNewsLocation ? 'black' : 'null'} nav__text_${props.savedNewsLocation ? 'black' : 'null'}`}>
-                       <span className='nav__btn-username'>{currentUser && currentUser.name}</span> 
+                       <span className='nav__btn-username'>{currentUser && currentUser.username}</span> 
                         <img src={props.savedNewsLocation ? signout : signoutwhite}
                         className='nav__signout'alt='signout' />
                     </button>)}
