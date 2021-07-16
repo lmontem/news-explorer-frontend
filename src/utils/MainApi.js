@@ -5,13 +5,9 @@ class MainApi {
         this._headers = headers;
     }
 
-    getUserInfo(token) {
+    getUserInfo() {
         return fetch(this._baseUrl + 'users/me', {
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": `token: ${token}`
-            }
+            headers: this._headers
         })
             .then(res => {
                 if (res.ok) {
@@ -21,14 +17,10 @@ class MainApi {
             })
     }
 
-    getArticles(token) {
+    getArticles() {
         return fetch(this._baseUrl + "articles", {
             method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            }
+            headers: this._headers
         })
             .then(res => { return res.json() }
             )
@@ -56,14 +48,10 @@ class MainApi {
             })
     }
 
-    removeArticle(articleId, token) {
+    removeArticle(articleId) {
         return fetch(this._baseUrl + 'articles/' + articleId, {
             method: "DELETE",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
+            headers: this._headers
         })
             .then(res => {
                 if (res.ok) {
@@ -77,10 +65,7 @@ class MainApi {
         
         return fetch(this._baseUrl + 'signup', {
             method: 'POST',
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
+            headers: this._headers,
             body: JSON.stringify({ email, password, username })
         })
             .then((res) => {
@@ -94,10 +79,7 @@ class MainApi {
     login(email, password) {
         return fetch(this._baseUrl + 'signin', {
             method: 'POST',
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
+            headers: this._headers,
             body: JSON.stringify({ email, password })
         })
             .then(res => {
@@ -114,11 +96,7 @@ class MainApi {
         console.log(token);
         return fetch(this._baseUrl + 'users/me', {
             method: 'GET',
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": `${token}`
-            }
+            headers: this._headers
         })
             .then(res => res.json())
             .then(data => data)

@@ -245,6 +245,7 @@ function App() {
     }
     if (!savedNewsLocation && loggedin) {
       card.keyword = searchWord;
+      card.source = card.source.name;
         console.log(card);
         //console.log(searchWord);
         mainApi.saveArticle(card)
@@ -356,6 +357,7 @@ function App() {
                 cards={savedCards}
                 searchWord={searchWord}
                 onDelete={handleArticleDelete}
+                handleSaveArticleClick={ (card) => { handleSaveArticleClick(card) }}
               />
             </Route>
           </Switch>
