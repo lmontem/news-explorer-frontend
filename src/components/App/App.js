@@ -68,6 +68,10 @@ function App() {
        setLoggedin(false);
      }
    }, []);*/
+   React.useEffect(() => {
+    //debugger;
+    handleCheckToken();
+}, []);
 
   React.useEffect(() => {
     if (token) {
@@ -75,8 +79,7 @@ function App() {
         .getUserInfo(token)
         .then((res) => {
           setCurrentUser(res);
-          console.log(res);
-          // findSavedCards(token);
+          findSavedArticles(token);
         })
         .catch((err) => {
           console.log(err);
@@ -172,10 +175,14 @@ function App() {
     mainApi
       .login(values.email, values.password)
       .then(res => {
-        console.log(res);
+        console.log('what up bags');
+        handleCheckToken();
+        window.location.reload();
         if (res.ok) {
+          console.log(res);
           return res.json();
         }
+
         if (!res.token) {
           setErrors((prevState) => ({
             ...prevState,
@@ -187,6 +194,7 @@ function App() {
 
       })
       .then(() => {
+        console.log('I am clicked');
         setLoggedin(true);
         closeAllPopups();
         resetForm();
@@ -202,23 +210,23 @@ function App() {
       })
   }
 
-  /* function handleCheckToken() {
-     const jwt = localStorage.getItem('jwt')
-     if (jwt) {
-       mainApi
-         .checkToken(jwt)
-         .then(res => {
-           if (res) {
- 
-             setValues({ email: res.email, username: res.username });
-             setLoggedin(true);
-             history.push('/saved-news')
-           }
-         }
-         )
-         .catch(err => console.log(err))
-     }
-   }*/
+  function handleCheckToken() {
+    const jwt = localStorage.getItem('jwt')
+    if (jwt) {
+      mainApi
+        .checkToken(jwt)
+        .then(res => {
+          if (res) {
+            setValues({ email: res.email, username: res.username });
+            setLoggedin(true);
+            history.push('/')
+          }
+        }
+        )
+        .catch(err => console.log(err))
+    }
+  }
+
   //handles sign out
   function handleSignOut(e) {
     e.preventDefault();
@@ -231,42 +239,16 @@ function App() {
     setNumCardsShown(numCardsShown + 3);
   }
   //handles saving articles
-  /*   function bookmarkArticleClick(card) {
-    if (!loggedin) {
-      return handleSigninPopupClick();
-    }
-    if (!savedNewsLocation && loggedin) {
-      if (!card.isSaved) {
-        bookmarkCard(card, token)
-          .then((cardData) => {
-            cardData.isSaved = true;
-            const newCards = cards.map((c) => (c === card ? cardData : c));
-            const newSavedCards = [...savedCards, cardData];
-            setSavedCards(newSavedCards);
-            setCards(newCards);
-            localStorage.setItem('searchResults', JSON.stringify(newCards));
-            localStorage.setItem('savedCards', JSON.stringify(newSavedCards));
-          })
-          .catch((err) => console.log(err));
-      } else {
-        handleDeleteClick(card);
-      }
-
-      return;
-    }
-    if (savedNewsLocation) {
-      return handleDeleteClick(card);
-    }
-  }*/
   function handleSaveArticleClick(card) {
     if (!loggedin) {
       return handleSignInClick();
     }
     if (!savedNewsLocation && loggedin) {
-      
-      if (!card.isSaved) {
-        mainApi.saveArticle(card, token)
-          .then((newCard) => {          
+      card.keyword = searchWord;
+        console.log(card);
+        //console.log(searchWord);
+        mainApi.saveArticle(card)
+          .then((newCard) => {
             newCard.isSaved = true;
             const newCards = cards.map((c) => c === card ? newCard : c);
             const newSavedCards = [...savedCards, newCard];
@@ -274,25 +256,33 @@ function App() {
             setCards(newCards);
           })
           .catch(err => console.log("Error: " + err));
-      } else {
-        handleArticleDelete(card);
-      }
+          
     }
-    if (savedNewsLocation) {
-      return handleArticleDelete(card);
+    else {
+      handleArticleDelete(card);
     }
   }
 
   //handles deleting article
-  function handleArticleDelete(artile) {
-    mainApi.removeArticle(artile._id, token)
+  function handleArticleDelete(article) {
+    mainApi.removeArticle(article._id, token)
       .then(() => {
-        const newSavedCards = savedCards.filter((c) => c._id !== artile._id);
+        const newSavedCards = savedCards.filter((c) => c._id !== article._id);
         setSavedCards(newSavedCards);
-        const newCards = cards.map((c) => (c._id === artile._id ? artile : c));
+        const newCards = cards.map((c) => (c._id === article._id ? article : c));
         setCards(newCards);
       })
       .catch(err => console.log("Error: " + err));
+  }
+
+  //get articles
+  function findSavedArticles(token) {
+    mainApi
+      .getArticles(token)
+      .then((res) => {
+        setSavedCards(res);
+      })
+      .catch((error) => console.log(error));
   }
 
   //handles submit of search form
@@ -356,7 +346,7 @@ function App() {
                 cards={cards}
                 handleShowMoreCards={handleShowMoreCards}
                 numCardsShown={numCardsShown}
-                handleSaveArticleClick={handleSaveArticleClick}
+                handleSaveArticleClick={ (card) => { handleSaveArticleClick(card) }}
               />
             </Route>
             <Route path='/saved-news'>

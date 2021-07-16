@@ -14,7 +14,7 @@ function NewsCardList(props) {
                     key={index}
                     card={card}
                     searchWord={props.searchWord}
-                    handleSaveArticleClick={props.handleSaveArticleClick}
+                    handleSaveArticleClick={() => props.handleSaveArticleClick(card)}
                 />
                 ))}
 

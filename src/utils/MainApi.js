@@ -1,3 +1,4 @@
+import { token } from "./constants.js"
 class MainApi {
     constructor({ baseUrl, headers }) {
         this._baseUrl = baseUrl;
@@ -9,7 +10,7 @@ class MainApi {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
+                "Authorization": `token: ${token}`
             }
         })
             .then(res => {
@@ -73,9 +74,7 @@ class MainApi {
     }
 
     register(email, password, username) {
-        console.log(email);
-        console.log(password);
-        console.log(username);
+        
         return fetch(this._baseUrl + 'signup', {
             method: 'POST',
             headers: {
@@ -85,7 +84,7 @@ class MainApi {
             body: JSON.stringify({ email, password, username })
         })
             .then((res) => {
-                console.log(res);
+               
                 if (res.status === 201 || res.status === 200) {
                     return res.json();
                 }
@@ -104,19 +103,21 @@ class MainApi {
             .then(res => {
                 return res.json()
             })
-           /* .then(data => {
-                localStorage.setItem('jwt', data.token);
-                return
-            })*/
+        /* .then(data => {
+             console.log(data);
+             localStorage.setItem('jwt', data.token);
+             return
+         })*/
     }
 
     checkToken(token) {
+        console.log(token);
         return fetch(this._baseUrl + 'users/me', {
             method: 'GET',
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
+                "Authorization": `${token}`
             }
         })
             .then(res => res.json())
@@ -126,5 +127,5 @@ class MainApi {
 
 export const mainApi = new MainApi({
     baseUrl: 'https://api.lmontem-news-explorer.students.nomoreparties.site/',
-    headers: { "Accept": "application/json", 'Content-Type': 'application/json' }
+    headers: { "Accept": "application/json", 'Content-Type': 'application/json', "Authorization": `token=${token}` }
 });
