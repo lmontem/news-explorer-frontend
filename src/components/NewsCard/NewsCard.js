@@ -16,9 +16,9 @@ function convertDate(date) {
                     {props.loggedin ? (<div className='card__keyword-display'
                     >{props.searchWord}</div>) : <div></div>}
                     <div className='card__btn-container'>
-                        <button className={`card__btn card__btn_${props.savedNewsLocation ? 'trashcan' : 'bookmark' }`} onClick={props.handleSaveArticleClick}></button>
-                        {props.loggedin ? <button className='card__btn-signin'>Remove from saved</button> :
-                            <button className='card__btn-signin'>Sign in to save articles</button>}
+                        <button className={`card__btn card__btn_${props.savedNewsLocation ? 'trashcan' : 'bookmark' } card__btn_${props.card.isSaved ? 'active' : 'bookmark' }`} onClick={props.handleSaveArticleClick}></button>
+                        {props.loggedin && props.savedNewsLocation ? <button className='card__btn-signin'>Remove from saved</button> :
+                            (!props.loggedin ? <button className='card__btn-signin'>Sign in to save articles</button> : null)}
                     </div>
                 </div>
                 <p className='card__date'>{convertDate(props.card.publishedAt)}</p>

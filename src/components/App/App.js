@@ -48,22 +48,13 @@ function App() {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [windowWidth]);
   
-   React.useEffect(() => {
-      handleCheckToken();
-});
+   React.useEffect(() => { 
+    handleCheckToken();
+}, []);
 
   React.useEffect(() => {
     if (token) {
-      mainApi
-        .getUserInfo(token)
-        .then((res) => {
-          console.log(res);
-          setCurrentUser(res);
-          findSavedArticles(token);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      getUser();
     }
   }, []);
 
@@ -132,7 +123,19 @@ function App() {
       .catch(err => console.log(err));
   }
 
-
+  function getUser () {
+    console.log(token);
+    mainApi
+        .getUserInfo()
+        .then((res) => {
+          console.log(res);
+          setCurrentUser(res);
+          findSavedArticles(token);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }
   //closes all popups
   function closeAllPopups() {
     setRegisterPopupOpen(false);
@@ -154,13 +157,13 @@ function App() {
     mainApi
       .login(values.email, values.password)
       .then(res => {
-        
-        handleCheckToken();
-       console.log(handleCheckToken);
-        if (res.ok) {
-          console.log(res);
-          return res.json();
-        }
+        console.log(res);
+        //handleCheckToken();
+        //console.log(handleCheckToken);
+        //if (res.ok) {
+          //console.log(res);
+          //return res.json();
+        //}
 
         if (!res.token) {
           setErrors((prevState) => ({
@@ -170,13 +173,17 @@ function App() {
 
           throw new Error(res.message);
         }
-
+        localStorage.setItem('jwt', res.token);
+        console.log(localStorage.getItem("jwt"));
+        getUser();
       })
       .then(() => {
-        setLoggedin(true);
+        //setLoggedin(true);
         closeAllPopups();
         resetForm();
-        history.push('/');
+        handleCheckToken();
+        //history.push('/');
+        window.location.reload();
       })
       .catch(res => {
         if (res === 400) {
@@ -211,6 +218,7 @@ function App() {
     localStorage.removeItem('jwt');
     setLoggedin(false);
     history.push('/');
+    window.location.reload();
   }
 
   //shows more cards
@@ -221,8 +229,10 @@ function App() {
   function handleSaveArticleClick(card) {
     if (!loggedin) {
       return handleSignInClick();
+    } else if (card.isSaved===true) {
+      handleArticleDelete(card);
     }
-    if (!savedNewsLocation && loggedin) {
+    else if (!savedNewsLocation && loggedin) {
       card.keyword = searchWord;
       card.source = card.source.name;
         
@@ -244,6 +254,7 @@ function App() {
 
   //handles deleting article
   function handleArticleDelete(article) {
+    article.isSaved = false;
     mainApi.removeArticle(article._id, token)
       .then(() => {
         const newSavedCards = savedCards.filter((c) => c._id !== article._id);
@@ -262,6 +273,27 @@ function App() {
         setSavedCards(res);
       })
       .catch((error) => console.log(error));
+  }
+
+  function checkArticles(cards, savedCards) {
+    //console.log(cards);
+    //console.log(savedCards);
+    for (let i = 0; i < cards.length; i++) {
+      const searchedCards = cards[i];
+      const userSavedCards = savedCards.find(
+        (obj) =>
+          obj.title === searchedCards.title &&
+          obj.url === searchedCards.url &&
+          obj.urlToImage === searchedCards.urlToImage &&
+          obj.description === searchedCards.description
+      );
+      if (userSavedCards) {
+       console.log(userSavedCards);
+        cards[i].isSaved = true;
+      }
+    }
+
+    setCards(cards);
   }
 
   //handles submit of search form
@@ -285,6 +317,7 @@ function App() {
         setNumCardsShown(3);
         setCards(cards);
         setResults(true);
+        checkArticles(cards, savedCards);
         setShowPreloader(false);
         setErrorMessage('');
       })
