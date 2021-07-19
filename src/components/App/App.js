@@ -1,6 +1,6 @@
 
 import React, { useState, useCallback } from 'react';
-import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
+import { Route, Switch, useLocation, useHistory, Redirect } from 'react-router-dom';
 import { newsApi } from '../../utils/NewsApi';
 import Main from '../Main/Main.js';
 import SavedNews from '../SavedNews/SavedNews.js';
@@ -10,6 +10,7 @@ import './App.css';
 import RegisterPopup from '../RegisterPopup/RegisterPopup.js';
 import LoginPopup from '../LoginPopup/LoginPopup.js';
 import ConfirmationPopup from '../ConfirmationPopup/ConfirmationPopup';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { smallscreen, token } from '../../utils/constants.js';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { mainApi } from '../../utils/MainApi';
@@ -47,10 +48,10 @@ function App() {
     windowWidth < smallscreen ? setMobile(true) : setMobile(false);
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [windowWidth]);
-  
-   React.useEffect(() => { 
+
+  React.useEffect(() => {
     handleCheckToken();
-}, []);
+  }, []);
 
   React.useEffect(() => {
     if (token) {
@@ -95,7 +96,7 @@ function App() {
   function handleRegisterLinkClick() {
     setRegisterPopupOpen(true);
     setLoginPopupOpen(false);
-   
+
   }
   //opens sign in form upon signin link/btn click
   function handleSignInClick() {
@@ -123,18 +124,18 @@ function App() {
       .catch(err => console.log(err));
   }
 
-  function getUser () {
+  function getUser() {
     console.log(token);
     mainApi
-        .getUserInfo()
-        .then((res) => {
-          console.log(res);
-          setCurrentUser(res);
-          findSavedArticles(token);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      .getUserInfo()
+      .then((res) => {
+        console.log(res);
+        setCurrentUser(res);
+        findSavedArticles(token);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   //closes all popups
   function closeAllPopups() {
@@ -161,8 +162,8 @@ function App() {
         //handleCheckToken();
         //console.log(handleCheckToken);
         //if (res.ok) {
-          //console.log(res);
-          //return res.json();
+        //console.log(res);
+        //return res.json();
         //}
 
         if (!res.token) {
@@ -229,23 +230,23 @@ function App() {
   function handleSaveArticleClick(card) {
     if (!loggedin) {
       return handleSignInClick();
-    } else if (card.isSaved===true) {
+    } else if (card.isSaved === true) {
       handleArticleDelete(card);
     }
     else if (!savedNewsLocation && loggedin) {
       card.keyword = searchWord;
       card.source = card.source.name;
-        
-        mainApi.saveArticle(card)
-          .then((newCard) => {
-            newCard.isSaved = true;
-            const newCards = cards.map((c) => c === card ? newCard : c);
-            const newSavedCards = [...savedCards, newCard];
-            setSavedCards(newSavedCards);
-            setCards(newCards);
-          })
-          .catch(err => console.log("Error: " + err));
-          
+
+      mainApi.saveArticle(card)
+        .then((newCard) => {
+          newCard.isSaved = true;
+          const newCards = cards.map((c) => c === card ? newCard : c);
+          const newSavedCards = [...savedCards, newCard];
+          setSavedCards(newSavedCards);
+          setCards(newCards);
+        })
+        .catch(err => console.log("Error: " + err));
+
     }
     else {
       handleArticleDelete(card);
@@ -288,7 +289,7 @@ function App() {
           obj.description === searchedCards.description
       );
       if (userSavedCards) {
-       console.log(userSavedCards);
+        console.log(userSavedCards);
         cards[i].isSaved = true;
       }
     }
@@ -340,8 +341,6 @@ function App() {
             onHamburgerClick={handleHamburgerClick}
             onClose={handleMobileNavClose}
             loggedin={loggedin}
-
-
           />
           <Switch>
             <Route exact path='/'>
@@ -358,20 +357,21 @@ function App() {
                 cards={cards}
                 handleShowMoreCards={handleShowMoreCards}
                 numCardsShown={numCardsShown}
-                handleSaveArticleClick={ (card) => { handleSaveArticleClick(card) }}
+                handleSaveArticleClick={(card) => { handleSaveArticleClick(card) }}
               />
             </Route>
-            <Route path='/saved-news'>
-              <SavedNews
-                loggedin={loggedin}
-                savedNewsLocation={savedNewsLocation}
-                cards={savedCards}
-                searchWord={searchWord}
-        
-                handleSaveArticleClick={ (card) => { handleSaveArticleClick(card) }}
-              />
-            </Route>
-          </Switch>
+            </Switch>
+            <ProtectedRoute
+              path='/saved-news'
+              component={SavedNews}
+              loggedin={loggedin}
+              savedNewsLocation={savedNewsLocation}
+              currentUser={currentUser}
+              cards={savedCards}
+              searchWord={searchWord}
+              handleSaveArticleClick={(card) => { handleSaveArticleClick(card) }}
+            />
+                    
           <Footer />
           <LoginPopup
             onSignupClick={handleRegisterLinkClick}

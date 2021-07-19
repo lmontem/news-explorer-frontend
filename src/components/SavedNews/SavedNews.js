@@ -4,7 +4,11 @@ function SavedNews(props) {
     return (
         (
             <section className='saved-main'>
-                <SavedNewsHeader />
+
+                <SavedNewsHeader
+                    cards={props.cards}
+                    currentUser={props.currentUser}
+                />
                 <div className='cards__block'>
                     <NewsCardList
                         searchWord={props.searchWord}
@@ -14,6 +18,7 @@ function SavedNews(props) {
                         handleSaveArticleClick={props.handleSaveArticleClick} />
                 </div>
             </section>
+        
         )
     )
 }
