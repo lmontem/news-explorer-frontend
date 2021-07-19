@@ -1,6 +1,6 @@
 
 import React, { useState, useCallback } from 'react';
-import { Route, Switch, useLocation, useHistory, Redirect } from 'react-router-dom';
+import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { newsApi } from '../../utils/NewsApi';
 import Main from '../Main/Main.js';
 import SavedNews from '../SavedNews/SavedNews.js';
@@ -75,6 +75,7 @@ function App() {
       [name]: value,
     };
     setValues(newValues);
+    validateFields(newValues);
     setErrors({ ...errors, [name]: errors[name] });
     setIsValid(e.target.closest('form').checkValidity());
   };
@@ -124,8 +125,8 @@ function App() {
       .catch(err => console.log(err));
   }
 
+  // gets user infomation
   function getUser() {
-    console.log(token);
     mainApi
       .getUserInfo()
       .then((res) => {
@@ -152,20 +153,23 @@ function App() {
   function handleMobileNavClose() {
     setMobileNavOpen(false);
   }
+
+  //validates fields
+  function validateFields() {
+    const validEmailRegex = RegExp(
+      /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/i
+    );
+    setErrors((prevState) => ({
+      ...prevState,
+      email: validEmailRegex.test(values.email) ? "" : "Invalid email address",
+    }));
+  }
   //handles sign in 
   function handleSignIn(e) {
     e.preventDefault();
     mainApi
       .login(values.email, values.password)
-      .then(res => {
-        console.log(res);
-        //handleCheckToken();
-        //console.log(handleCheckToken);
-        //if (res.ok) {
-        //console.log(res);
-        //return res.json();
-        //}
-
+      .then(res => {              
         if (!res.token) {
           setErrors((prevState) => ({
             ...prevState,
@@ -179,11 +183,11 @@ function App() {
         getUser();
       })
       .then(() => {
-        //setLoggedin(true);
+        
         closeAllPopups();
         resetForm();
         handleCheckToken();
-        //history.push('/');
+        
         window.location.reload();
       })
       .catch(res => {
@@ -244,6 +248,7 @@ function App() {
           const newSavedCards = [...savedCards, newCard];
           setSavedCards(newSavedCards);
           setCards(newCards);
+          
         })
         .catch(err => console.log("Error: " + err));
 
@@ -276,9 +281,8 @@ function App() {
       .catch((error) => console.log(error));
   }
 
+  //compares saved articles and searched articles
   function checkArticles(cards, savedCards) {
-    //console.log(cards);
-    //console.log(savedCards);
     for (let i = 0; i < cards.length; i++) {
       const searchedCards = cards[i];
       const userSavedCards = savedCards.find(
@@ -318,6 +322,7 @@ function App() {
         setNumCardsShown(3);
         setCards(cards);
         setResults(true);
+        setSearchWord(searchWord);
         checkArticles(cards, savedCards);
         setShowPreloader(false);
         setErrorMessage('');
@@ -360,9 +365,9 @@ function App() {
                 handleSaveArticleClick={(card) => { handleSaveArticleClick(card) }}
               />
             </Route>
-            </Switch>
+
             <ProtectedRoute
-              path='/saved-news'
+              exact path='/saved-news'
               component={SavedNews}
               loggedin={loggedin}
               savedNewsLocation={savedNewsLocation}
@@ -371,7 +376,7 @@ function App() {
               searchWord={searchWord}
               handleSaveArticleClick={(card) => { handleSaveArticleClick(card) }}
             />
-                    
+          </Switch>
           <Footer />
           <LoginPopup
             onSignupClick={handleRegisterLinkClick}
