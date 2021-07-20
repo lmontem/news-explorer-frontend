@@ -39,6 +39,8 @@ function App() {
   const [values, setValues] = React.useState({ email: '', password: '', username: '' });
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
+  const [duplicateEmailMessage, setDuplicateEmailMessage] = React.useState(false);
+  const [wrongEmailOrPasswordMessage, setWrongEmailOrPasswordMessage] = React.useState(false);
   const history = useHistory();
 
   //determines size of window so mobile nav can be set
@@ -60,9 +62,9 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-   // if (localStorage.getItem('searchResults')) {
-   //   setCards(JSON.parse(localStorage.getItem('searchResults')));
-   // }
+    // if (localStorage.getItem('searchResults')) {
+    //   setCards(JSON.parse(localStorage.getItem('searchResults')));
+    // }
     if (localStorage.getItem('savedCards') !== null && loggedin) {
       setSavedCards(JSON.parse(localStorage.getItem('savedCards')));
       setResults(true);
@@ -98,7 +100,7 @@ function App() {
   function handleRegisterLinkClick() {
     setRegisterPopupOpen(true);
     setLoginPopupOpen(false);
-
+    setWrongEmailOrPasswordMessage(false);
   }
   //opens sign in form upon signin link/btn click
   function handleSignInClick() {
@@ -114,6 +116,11 @@ function App() {
     mainApi
       .register(values.email, values.password, values.username)
       .then((res) => {
+        console.log(res);
+        if (res.message === 'Duplicate Email') {          
+          setDuplicateEmailMessage(true);
+          return Promise.reject(`Error! ${res.message}`);
+        }
         if (res.ok) {
           return res.json();
         }
@@ -121,6 +128,7 @@ function App() {
       .then(() => {
         setConfirmationPopupOpen(true);
         setRegisterPopupOpen(false);
+        setDuplicateEmailMessage(false);       
         resetForm();
       })
       .catch(err => console.log(err));
@@ -143,6 +151,8 @@ function App() {
     setRegisterPopupOpen(false);
     setLoginPopupOpen(false);
     resetForm();
+    setDuplicateEmailMessage(false);
+    setWrongEmailOrPasswordMessage(false); 
     setConfirmationPopupOpen(false);
   }
   //opens mobile nav upon hamburger menu click
@@ -170,24 +180,28 @@ function App() {
     mainApi
       .login(values.email, values.password)
       .then(res => {
-        if (!res.token) {
+       /* if (!res.token) {
           setErrors((prevState) => ({
             ...prevState,
             result: res.message,
           }));
 
           throw new Error(res.message);
+        } */
+        if (res.message === 'Authorization required') {
+          console.log(res);
+          setWrongEmailOrPasswordMessage(true);
+          return Promise.reject(`Error! ${res.message}`);
         }
         localStorage.setItem('jwt', res.token);
-        
+
         getUser();
       })
       .then(() => {
-
         closeAllPopups();
+        //setDuplicateEmailMessage(false);
         resetForm();
         handleCheckToken();
-
         window.location.reload();
       })
       .catch(res => {
@@ -223,7 +237,7 @@ function App() {
     localStorage.removeItem('jwt');
     setLoggedin(false);
     history.push('/');
-    // localStorage.removeItem('searchResults', JSON.stringify(cards));
+    //localStorage.removeItem('searchResults', JSON.stringify(cards));
     localStorage.removeItem('savedCards', JSON.stringify(cards));
     window.location.reload();
   }
@@ -250,7 +264,7 @@ function App() {
           const newSavedCards = [...savedCards, newCard];
           console.log(newSavedCards);
           setSavedCards(newSavedCards);
-          setCards(newCards);        
+          setCards(newCards);
           localStorage.setItem('savedCards', JSON.stringify(newSavedCards));
         })
         .catch(err => console.log("Error: " + err));
@@ -280,9 +294,7 @@ function App() {
     mainApi
       .getArticles(token)
       .then((res) => {
-        if(res.owner === savedCards.owner){
         setSavedCards(res);
-        }
       })
       .catch((error) => console.log(error));
   }
@@ -299,7 +311,7 @@ function App() {
           obj.description === searchedCards.description
       );
       if (userSavedCards) {
-       // console.log(userSavedCards);
+        // console.log(userSavedCards);
         cards[i].isSaved = true;
       }
     }
@@ -332,7 +344,7 @@ function App() {
         checkArticles(cards, savedCards);
         setShowPreloader(false);
         setErrorMessage('');
-       
+
       })
       .catch(() => {
         setErrorMessage("Sorry, something went wrong during the request. There may be a connection issue or the server may be down. Please try again later.")
@@ -393,6 +405,7 @@ function App() {
             handleFormChange={handleFormChange}
             values={values}
             isValid={isValid}
+            wrongEmailOrPasswordMessage={wrongEmailOrPasswordMessage}
           />
           <RegisterPopup
             onSigninClick={handleSignInClick}
@@ -402,6 +415,7 @@ function App() {
             handleFormChange={handleFormChange}
             values={values}
             isValid={isValid}
+            duplicateEmailMessage={duplicateEmailMessage}
           />
           <ConfirmationPopup
             onSigninClick={handleSignInClick}

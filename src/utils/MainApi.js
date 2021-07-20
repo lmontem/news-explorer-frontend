@@ -70,9 +70,9 @@ class MainApi {
             body: JSON.stringify({ email, password, username })
         })
             .then((res) => {
-                if (res.status === 201 || res.status === 200) {
+               // if (res.status === 201 || res.status === 200) {
                     return res.json();
-                }
+               // }
             })
     }
 

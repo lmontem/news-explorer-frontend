@@ -32,8 +32,7 @@
     font-size: 12px;
     line-height: 15px;
     text-align: center;
-    display: none;
-    /*only display if error registering email*/
+    margin-left: 36px;
 }
 
 .login__btn {
