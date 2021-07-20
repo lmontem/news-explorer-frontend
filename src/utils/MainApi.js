@@ -10,7 +10,7 @@ class MainApi {
             headers: this._headers
         })
             .then(res => {
-                console.log(res);
+              
                 if (res.ok) {
                     return res.json();//this makes object out of response
                 }

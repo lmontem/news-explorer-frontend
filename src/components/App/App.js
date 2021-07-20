@@ -60,11 +60,12 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    if (localStorage.getItem('searchResults')) {
-      setCards(JSON.parse(localStorage.getItem('searchResults')));
-    }
-    if (localStorage.getItem('savedCards')) {
+   // if (localStorage.getItem('searchResults')) {
+   //   setCards(JSON.parse(localStorage.getItem('searchResults')));
+   // }
+    if (localStorage.getItem('savedCards') !== null && loggedin) {
       setSavedCards(JSON.parse(localStorage.getItem('savedCards')));
+      setResults(true);
     }
   }, []);
 
@@ -130,7 +131,6 @@ function App() {
     mainApi
       .getUserInfo()
       .then((res) => {
-        console.log(res);
         setCurrentUser(res);
         findSavedArticles(token);
       })
@@ -169,7 +169,7 @@ function App() {
     e.preventDefault();
     mainApi
       .login(values.email, values.password)
-      .then(res => {              
+      .then(res => {
         if (!res.token) {
           setErrors((prevState) => ({
             ...prevState,
@@ -179,15 +179,15 @@ function App() {
           throw new Error(res.message);
         }
         localStorage.setItem('jwt', res.token);
-        console.log(localStorage.getItem("jwt"));
+        
         getUser();
       })
       .then(() => {
-        
+
         closeAllPopups();
         resetForm();
         handleCheckToken();
-        
+
         window.location.reload();
       })
       .catch(res => {
@@ -223,6 +223,8 @@ function App() {
     localStorage.removeItem('jwt');
     setLoggedin(false);
     history.push('/');
+    // localStorage.removeItem('searchResults', JSON.stringify(cards));
+    localStorage.removeItem('savedCards', JSON.stringify(cards));
     window.location.reload();
   }
 
@@ -240,15 +242,16 @@ function App() {
     else if (!savedNewsLocation && loggedin) {
       card.keyword = searchWord;
       card.source = card.source.name;
-
+      console.log(card);
       mainApi.saveArticle(card)
         .then((newCard) => {
           newCard.isSaved = true;
           const newCards = cards.map((c) => c === card ? newCard : c);
           const newSavedCards = [...savedCards, newCard];
+          console.log(newSavedCards);
           setSavedCards(newSavedCards);
-          setCards(newCards);
-          
+          setCards(newCards);        
+          localStorage.setItem('savedCards', JSON.stringify(newSavedCards));
         })
         .catch(err => console.log("Error: " + err));
 
@@ -267,6 +270,7 @@ function App() {
         setSavedCards(newSavedCards);
         const newCards = cards.map((c) => (c._id === article._id ? article : c));
         setCards(newCards);
+        localStorage.setItem('savedCards', JSON.stringify(newSavedCards));
       })
       .catch(err => console.log("Error: " + err));
   }
@@ -276,7 +280,9 @@ function App() {
     mainApi
       .getArticles(token)
       .then((res) => {
+        if(res.owner === savedCards.owner){
         setSavedCards(res);
+        }
       })
       .catch((error) => console.log(error));
   }
@@ -293,7 +299,7 @@ function App() {
           obj.description === searchedCards.description
       );
       if (userSavedCards) {
-        console.log(userSavedCards);
+       // console.log(userSavedCards);
         cards[i].isSaved = true;
       }
     }
@@ -326,6 +332,7 @@ function App() {
         checkArticles(cards, savedCards);
         setShowPreloader(false);
         setErrorMessage('');
+       
       })
       .catch(() => {
         setErrorMessage("Sorry, something went wrong during the request. There may be a connection issue or the server may be down. Please try again later.")
