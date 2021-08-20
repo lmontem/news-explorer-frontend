@@ -5,9 +5,19 @@ function NewsCardList(props) {
         (
 
             <ul className='cards__list'>
+                {props.cards
+                    .slice(0, props.savedNewsLocation ? props.cards.length : props.numCardsShown)
+                .map((card, index) => (
                 <NewsCard
                     loggedin={props.loggedin}
-                    savedNewsLocation={props.savedNewsLocation} />
+                    savedNewsLocation={props.savedNewsLocation}
+                    key={index}
+                    card={card}
+                    searchWord={props.searchWord}
+                    handleSaveArticleClick={() => props.handleSaveArticleClick(card)}
+                />
+                ))}
+
             </ul>
 
         )

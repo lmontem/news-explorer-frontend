@@ -7,7 +7,7 @@ function ConfirmationPopup(props) {
                 onClose={props.onClose}
                 name='confirm' title='Registration successfully completed!'
             >
-                <div className="confirm__link login__link" onClick={props.SigninClick}>Sign in</div>
+                <div className="confirm__link login__link" onClick={props.onSigninClick}>Sign in</div>
             </Popup>
         
         )

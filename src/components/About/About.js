@@ -6,9 +6,10 @@ function About(props) {
                 <img className='about__img' src={author} alt='the author' />
                 <div className='about__container'>
                     <h2 className='about__heading'>About the author</h2>
-                    <p className='about__description'>This block describes the project author. Here you should indicate your name, what you do, and which development technologies you know.
-
-You can also talk about your experience with Practicum, what you learned there, and how you can help potential customers.</p>
+                    <p className='about__description'>   Hi, my name is Leandra and this is my final project in the web
+          development course at Practicum by Yandex. My speciality is front-end development and improving user interaction as well as responsiveness.                       
+           
+</p>
                 </div>
             </section>
         )

@@ -1,9 +1,12 @@
+import React from 'react';
 import Navigation from '../Navigation/Navigation';
 import MobileNavigation from '../MobileNavigation/MobileNavigation.js';
 import { Link } from 'react-router-dom';
 
 
+
 function Header(props) {
+    
     return (
         (
             <header className='header'>
@@ -16,6 +19,7 @@ function Header(props) {
                         mobile={props.mobile}
                         loggedin={props.loggedin}
                         onSignOut={props.onSignOut}
+                        
                     />
                 ) : (
                     <Navigation
@@ -25,6 +29,7 @@ function Header(props) {
                         mobileMenuOpen={props.mobileMenuOpen}
                         loggedin={props.loggedin}
                         onSignOut={props.onSignOut}
+                        
                     />
                 )}
                 {props.mobile && (
