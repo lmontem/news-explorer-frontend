@@ -99,7 +99,7 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-    baseUrl: 'https://api.news-explorer.leandrashelton.com',
+    baseUrl: 'https://api.news-explorer.leandrashelton.com/',
    // baseUrl: 'https://api.lmontem-news-explorer.students.nomoreparties.site/',
     headers: { "Accept": "application/json", 'Content-Type': 'application/json', "Authorization": `token=${token}` }
 });
